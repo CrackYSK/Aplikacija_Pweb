@@ -3,7 +3,6 @@
 {% block body %}
     <div class="container">
         <div class="jumbotron text-centar">
-
             <div class="col-sm-4">
                 <img src="{{ asset('bundles/img/logo.png') }}" class="img-responsive" id="slikaLogo"/>
             </div>
@@ -14,14 +13,14 @@
                 </p>
                 <h3 style="color:#b30000; font-size:200%; font-weight:bold;">Математички факултет</h3>
 
-                </p>
+
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-4">
                 <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%;">>>
-                    <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="registruj.html"> Региструј
+                    <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="{{ path('registruj') }}"> Региструј
                         се </a>
                 </h3>
                 <p>Попуни пријаву кликом на следеће дугме и региструј себе или свој тим
@@ -30,7 +29,7 @@
             </div>
             <div class="col-sm-4">
                 <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%;">>>
-                    <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="prijava.html"> Пријави се </a>
+                    <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="{{ path('prijava') }}"> Пријави се </a>
                 </h3>
                 <p>Улогуј се на свој налог и прати обавештења.
                 </p>
