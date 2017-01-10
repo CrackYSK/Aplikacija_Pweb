@@ -1,7 +1,9 @@
-#teloLogin{
-    margin-top:100px;
+#proba{
+    margin-top:200px;
 }
-.form-login {
+#prijava{
+    text-align:center;
+    margin-top:100px;
     background-color: #EDEDED;
     padding-top: 10px;
     padding-bottom: 20px;
@@ -11,7 +13,14 @@
     border-color:#d2d2d2;
     border-width: 5px;
     box-shadow:0 1px 0 #cfcfcf;
-	width:350px;
+    width:350px;
+    border-radius: 10px;
+}
+#password{
+    margin-left:55px;
+}
+.form-login {
+
 }
 
 .form-control {
@@ -19,11 +28,13 @@
 }
 
 .wrapper {
-    text-align: center;
+
 }
-.btn-md {
-	
+#_submit{
+    margin: 0 auto;
+
     padding: 10px 30px;
     font-size: 15px;
     border-radius: 10px;
+
 }

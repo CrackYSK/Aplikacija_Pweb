@@ -12,16 +12,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 
-class RegistrujController extends BaseController
+class RegistrujKorisnikaController extends BaseController
 {
 
     /**
-     * @Route("/registruj", name="registruj")
+     * @Route("/admin/registruj", name="registruj")
      */
     public function indexAction(Request $request)
     {
 
-        return $this->render('AppBundle:Registruj:registruj.html.twig');
+        return $this->render('AppBundle:Admin:Registruj:registruj.html.twig');
     }
 
 }
