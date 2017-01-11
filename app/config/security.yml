@@ -5,13 +5,15 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_KOMISIJA: [ROLE_KOMISIJA, ROLE_ADMIN]
+        ROLE_KOMISIJA: ROLE_KOMISIJA
         ROLE_ADMIN: ROLE_ADMIN
 
     access_control:
         - { path: ^/prijava$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_KOMISIJA }
+        - { path: ^/admin/registruj, role: ROLE_ADMIN }
+        - { path: ^/admin, role: ROLE_KOMISIJA }
         - { path: ^/login$, role: ROLE_NO_ACCESS }
+
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
@@ -31,6 +33,7 @@ security:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
                 login_path: /prijava
+                default_target_path: /admin
             logout:
               path: /logout
               target: /
