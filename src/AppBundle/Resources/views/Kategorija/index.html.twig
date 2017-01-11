@@ -3,5 +3,25 @@
 {% block title %}AppBundle:Kategorija:index{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Kategorija:index page</h1>
+    <h1>Welcome to the Kategorija:index page</h1>
+    <table class="table table-bordered">
+        <thead>
+        <td>Naziv</td>
+        <td>Broj timova</td>
+        <td>Broj clanova</td>
+        <td>Studentska</td>
+        <td>Akcije</td>
+        </thead>
+        <tbody>
+        {% for kategorija in kategorije %}
+            <tr>
+                <td>{{ kategorija.naziv }}</td>
+                <td>{{ kategorija.studentska }}</td>
+                <td>{{ kategorija.studentska }}</td>
+                <td>{{ kategorija.studentska }}</td>
+                <td><a href="{{ path('kategorija_delete', {'id': kategorija.id}) }}">Obrisi</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

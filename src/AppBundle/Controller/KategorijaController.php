@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Kategorija;
 use AppBundle\Form\KategorijaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -22,8 +22,8 @@ class KategorijaController extends BaseController
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Kategorija:index.html.twig', array(// ...
-        ));
+        $kategorije = $this->getRepository('AppBundle:Kategorija')->findAll();
+        return $this->render('AppBundle:Kategorija:index.html.twig', array('kategorije' => $kategorije));
     }
 
     /**
@@ -65,7 +65,13 @@ class KategorijaController extends BaseController
      */
     public function editAction($id)
     {
-        return $this->render('AppBundle:Kategorija:edit.html.twig', array(// ...
+        $kategorija = $this->getRepository('AppBundle:Kategorija')->find($id);
+        $form = $this->createForm(KategorijaType::class, $kategorija, array(
+            'action' => $this->generateUrl('kategorija_update', array('id' => $id)),
+        ));
+
+        return $this->render('AppBundle:Kategorija:edit.html.twig', array(
+            'form' => $form->createView(),
         ));
     }
 
@@ -73,10 +79,19 @@ class KategorijaController extends BaseController
      * @Route("/{id}/edit", name="kategorija_update")
      * @Method("POST")
      */
-    public function updateAction($id)
+    public function updateAction($id, Request $request)
     {
-        return $this->render('AppBundle:Kategorija:update.html.twig', array(// ...
-        ));
+        $kategorija = $this->getRepository('AppBundle:Kategorija')->find($id);
+        $form = $this->createForm(KategorijaType::class, $kategorija);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->persist($form->getData());
+            return $this->forward('AppBundle:Kategorija:index', array('success' => true));
+        } else {
+            return $this->render('AppBundle:Kategorija:edit.html.twig', array(
+                'form' => $form->createView(),
+            ));
+        }
     }
 
     /**
