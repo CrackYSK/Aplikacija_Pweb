@@ -16,12 +16,11 @@ class RegistrujKorisnikaController extends BaseController
 {
 
     /**
-     * @Route("/admin/registruj", name="registruj")
+     * @Route("/admin/registruj", name="registruj_korisnika")
      */
     public function indexAction(Request $request)
     {
-
-        return $this->render('AppBundle:Admin:Registruj:registruj.html.twig');
+        return $this->render('AppBundle:Admin:registruj.html.twig');
     }
 
 }

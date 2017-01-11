@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: david
- * Date: 10.1.17.
- * Time: 20.32
+ * Date: 11.1.17.
+ * Time: 15.11
  */
 
 namespace AppBundle\Controller;
@@ -12,14 +12,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 
-class RegistrujTimController extends BaseController
+class AdminController extends BaseController
 {
     /**
-     * @Route("/registruj", name="registruj")
+     * @Route("/admin", name="admin")
      */
     public function indexAction(Request $request)
     {
-
-        return $this->render('AppBundle:Registruj:registruj.html.twig');
+        // replace this example code with whatever you need
+        return $this->render('AppBundle:Admin:index.html.twig');
     }
+
 }
