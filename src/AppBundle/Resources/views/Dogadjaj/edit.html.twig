@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+{% form_theme form 'theme/bootstrap_3_horizontal_layout.html.twig' %}
+{% block title %}AppBundle:Dogadjaj:edit{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Dogadjaj:edit page</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
