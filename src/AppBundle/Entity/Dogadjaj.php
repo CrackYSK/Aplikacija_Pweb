@@ -35,6 +35,11 @@ class Dogadjaj
      */
     private $datum;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="dogadjaj")
+     * @ORM\JoinColumn(name="id_predsednik", referencedColumnName="id")
+     */
+    private $predsednik;
 
     /**
      * Get id

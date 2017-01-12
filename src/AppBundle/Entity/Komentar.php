@@ -35,6 +35,12 @@ class Komentar
      */
     private $za;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="komentar")
+     * @ORM\JoinColumn(name="id_komentator", referencedColumnName="id")
+     */
+    private $komentator;
+
 
     /**
      * Get id

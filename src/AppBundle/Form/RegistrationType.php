@@ -12,6 +12,8 @@ use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class RegistrationType extends AbstractType
 {
@@ -27,7 +29,18 @@ class RegistrationType extends AbstractType
                 'second_options' => array('label' => 'Потврда лозинке'),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
-        ;
+            ->add('roles', CollectionType::class, array(
+                'entry_type' => ChoiceType::class,
+                'entry_options' => array(
+                    'choices' => array(
+                        'Члан комисије' => 'ROLE_KOMISIJA',
+                        'Администратор' => 'ROLE_ADMIN',
+                    ),
+                    'label' => ' '
+                ),
+                'label' => 'Привилегије'
+            ));
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

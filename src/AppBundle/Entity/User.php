@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -22,6 +23,21 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Dogadjaj", mappedBy="predsednik")
+     */
+    private $dogadjaj;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Komentar", mappedBy="komentator")
+     */
+    private $komentar;
+
+    public function __construct()
+    {
+        $this->komentar = new ArrayCollection();
+        $this->dogadjaj = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -33,12 +49,6 @@ class User extends BaseUser
         return $this->id;
     }
 
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-        $this->roles = array('ROLE_KOMISIJA');
-    }
 
 }
 

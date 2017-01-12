@@ -14,11 +14,11 @@ class KategorijaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('naziv')
-            ->add('brojTimova')
-            ->add('brojClanovaTima')
-            ->add('studentska')
-            ->add('save', SubmitType::class);
+        $builder->add('naziv',null,  array('label' => 'Назив'))
+            ->add('brojTimova',null,  array('label' => 'Број тимова'))
+            ->add('brojClanovaTima',null,  array('label' => 'Број чланова тима'))
+            ->add('studentska',null,  array('label' => 'Студентска'))
+            ->add('save', SubmitType::class, array('label' => 'Сачувај'));
     }
 
     /**

@@ -1,27 +1,41 @@
-{% extends "::base.html.twig" %}
+{% extends 'AppBundle:Admin:admin_base.html.twig' %}
 
-{% block title %}AppBundle:Kategorija:index{% endblock %}
+{% block title %}Преглед категорија{% endblock %}
 
 {% block body %}
-    <h1>Welcome to the Kategorija:index page</h1>
+    <div class="container">
+    <h1 style="text-align:center">Преглед категорија</h1>
     <table class="table table-bordered">
         <thead>
-        <td>Naziv</td>
-        <td>Broj timova</td>
-        <td>Broj clanova</td>
-        <td>Studentska</td>
-        <td>Akcije</td>
+        <td>Назив</td>
+        <td>Број тимова</td>
+        <td>Број чланова</td>
+        <td>Студентска</td>
+        <td>Акције</td>
         </thead>
         <tbody>
         {% for kategorija in kategorije %}
             <tr>
                 <td>{{ kategorija.naziv }}</td>
+                <td>{{ kategorija.brojTimova }}</td>
+                <td>{{ kategorija.brojClanovaTima }}</td>
                 <td>{{ kategorija.studentska }}</td>
-                <td>{{ kategorija.studentska }}</td>
-                <td>{{ kategorija.studentska }}</td>
-                <td><a href="{{ path('kategorija_delete', {'id': kategorija.id}) }}">Obrisi</a></td>
+                <td>
+                    <a class="btn btn-primary btn-xs" role="button" href="{{ path('kategorija_edit', {'id': kategorija.id}) }}">
+                        Измени</a>
+
+                    <a class="btn btn-danger btn-xs" role="button" href="{{ path('kategorija_delete', {'id': kategorija.id}) }}">
+                        Обриши</a>
+
+
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <a class="btn btn-success" role="button" href="{{ path('kategorija_nova') }}">
+        Додај нову категорију</a>
+
+    </div>
 {% endblock %}

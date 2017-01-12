@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * Class KategorijaController
  * @package AppBundle\Controller
- * @Route("/kategorija")
+ * @Route("/admin/kategorija")
  */
 class KategorijaController extends BaseController
 {
@@ -27,7 +27,7 @@ class KategorijaController extends BaseController
     }
 
     /**
-     * @Route("/new", name="kategorija_nova")
+     * @Route("/nova", name="kategorija_nova")
      * @Method("GET")
      */
     public function newAction()
@@ -42,7 +42,7 @@ class KategorijaController extends BaseController
     }
 
     /**
-     * @Route("/new", name="kategorija_insert")
+     * @Route("/nova", name="kategorija_insert")
      * @Method("POST")
      */
     public function insertAction(Request $request)
@@ -60,7 +60,7 @@ class KategorijaController extends BaseController
     }
 
     /**
-     * @Route("/{id}/edit", name="kategorija_edit")
+     * @Route("/{id}/izmeni", name="kategorija_edit")
      * @Method("GET")
      */
     public function editAction($id)
@@ -76,7 +76,7 @@ class KategorijaController extends BaseController
     }
 
     /**
-     * @Route("/{id}/edit", name="kategorija_update")
+     * @Route("/{id}/izmeni", name="kategorija_update")
      * @Method("POST")
      */
     public function updateAction($id, Request $request)
@@ -95,7 +95,7 @@ class KategorijaController extends BaseController
     }
 
     /**
-     * @Route("/delete", name="kategorija_delete")
+     * @Route("/obrisi", name="kategorija_delete")
      */
     public function deleteAction()
     {

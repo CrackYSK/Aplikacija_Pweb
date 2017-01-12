@@ -6,7 +6,7 @@ security:
 
     role_hierarchy:
         ROLE_KOMISIJA: ROLE_KOMISIJA
-        ROLE_ADMIN: ROLE_ADMIN
+        ROLE_ADMIN: ROLE_KOMISIJA
 
     access_control:
         - { path: ^/prijava$, role: IS_AUTHENTICATED_ANONYMOUSLY }
