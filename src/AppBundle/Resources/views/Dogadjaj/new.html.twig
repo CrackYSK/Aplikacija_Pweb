@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+{% form_theme form 'theme/bootstrap_3_horizontal_layout.html.twig' %}
+{% block title %}AppBundle:Dogadjaj:new{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Dogadjaj:new page</h1>
+    {{ form_start(form) }}      {#priprema#}
+    {{ form_widget(form) }}     {# kreira formu , poziva buildForm#}
+    {{ form_end(form) }}
+{% endblock %}
