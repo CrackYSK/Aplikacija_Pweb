@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * Class DogadjajController
  * @package AppBundle\Controller
- * @Route("/dogadjaj")
+ * @Route("/admin/dogadjaj")
  */
 class DogadjajController extends BaseController
 {
@@ -32,27 +32,32 @@ class DogadjajController extends BaseController
     }
 
     /**
-     * @Route("/new", name="dogadjaj_novi")
+     * @Route("/nova", name="dogadjaj_novi")
      * @Method("GET")
      */
     public function newAction()
     {
+
         $form = $this->createForm(DogadjajType::class, new Dogadjaj(), array(
             'action' => $this->generateUrl('dogadjaj_insert'),
+            'manager' => $this->getDoctrine()->getManager()
         ));
 
         return $this->render('AppBundle:Dogadjaj:new.html.twig', array(
             'form' => $form->createView(),
+
         ));
     }
 
     /**
-     * @Route("/new", name="dogadjaj_insert")
+     * @Route("/nova", name="dogadjaj_insert")
      * @Method("POST")
      */
     public function insertAction(Request $request)
     {
-        $form = $this->createForm(DogadjajType::class, new Dogadjaj());
+        $form = $this->createForm(DogadjajType::class, new Dogadjaj(), array(
+            'manager' => $this->getDoctrine()->getManager()
+        ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persist($form->getData());
@@ -66,7 +71,7 @@ class DogadjajController extends BaseController
 
 
     /**
-     * @Route("/{id}/edit", name="dogadjaj_dohvati")
+     * @Route("/{id}/izmeni", name="dogadjaj_dohvati")
      * @Method("GET")
      */
     public function editAction($id)
@@ -82,7 +87,7 @@ class DogadjajController extends BaseController
     }
 
     /**
-     * @Route("/{id}/edit", name="dogadjaj_izmeni")
+     * @Route("/{id}/izmeni", name="dogadjaj_izmeni")
      * @Method("POST")
      */
     public function updateAction($id, Request $request)
@@ -102,7 +107,7 @@ class DogadjajController extends BaseController
 
 
     /**
-     * @Route("/{id}/delete", name="dogadjaj_obrisi")
+     * @Route("/{id}/obrisi", name="dogadjaj_obrisi")
      * @Method("GET")
      */
     public function deleteAction($id)

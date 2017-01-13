@@ -1,26 +1,36 @@
-{% extends "::base.html.twig" %}
+{% extends 'AppBundle:Admin:admin_base.html.twig' %}
 
-{% block title %}AppBundle:Kategorija:index{% endblock %}
+{% block title %}Преглед догађаја{% endblock %}
 
 {% block body %}
-    <h1>Welcome to the Dogadjaj:index page</h1>
-    <table class="table table-bordered">
-        <thead>
-        <td>Naziv</td>
-        <td>Datum</td>
-        </thead>
-        <tbody>
-        {% for dogadjaj in dogadjaji %}
-            <tr>
-                <td>{{ dogadjaj.ime }}</td>
-                <td>{{ dogadjaj.datum|date("m/d/Y")  }}</td>
-                <td><a href="{{ path('dogadjaj_obrisi', {'id': dogadjaj.id}) }}">Obrisi</a>
-                    <a href="{{ path('dogadjaj_dohvati', {'id': dogadjaj.id}) }}">Izmeni</a>
-                    <a href="{{ path('takmicenje_novo', {'id': dogadjaj.id}) }}">Dodaj takmicenje</a>
 
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <h1 style="text-align:center">Преглед догађаја</h1>
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+            <td>Назив</td>
+            <td>Датум</td>
+            <td>Акције</td>
+            </thead>
+            <tbody>
+            {% for dogadjaj in dogadjaji %}
+                <tr>
+                    <td>{{ dogadjaj.ime }}</td>
+                    <td>{{ dogadjaj.datum|date("m/d/Y")  }}</td>
+                    <td>  <a class="btn btn-primary btn-xs" role="button" href="{{ path('dogadjaj_dohvati', {'id': dogadjaj.id}) }}">
+                            Измени</a>
+                        <a class="btn btn-danger btn-xs" role="button" href="{{ path('dogadjaj_obrisi', {'id': dogadjaj.id}) }}">
+                            Обриши</a>
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn btn-success" role="button" href="{{ path('dogadjaj_novi') }}">
+            Додај нови догађај</a>
+    </div>
+
+
 {% endblock %}

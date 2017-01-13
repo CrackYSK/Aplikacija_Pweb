@@ -20,7 +20,6 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'е-пошта', 'translation_domain' => 'FOSUserBundle'))
             ->add('username', null, array('label' => 'Корисничко име', 'translation_domain' => 'FOSUserBundle'))
             ->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
                 'type' => LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'),
@@ -29,6 +28,7 @@ class RegistrationType extends AbstractType
                 'second_options' => array('label' => 'Потврда лозинке'),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
+            ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'е-пошта', 'translation_domain' => 'FOSUserBundle'))
             ->add('roles', CollectionType::class, array(
                 'entry_type' => ChoiceType::class,
                 'entry_options' => array(
@@ -38,8 +38,18 @@ class RegistrationType extends AbstractType
                     ),
                     'label' => ' '
                 ),
-                'label' => 'Привилегије'
+                'label' => 'Привилегије',// 'attr' => array('class' => 'form-control'),
             ));
+
+//        <div class="form-group" style="margin-left: 5px">
+//        <label for="sort" class="col-sm-2 control-label"> Председник</label>
+//        <select class="form-control" name="sort" style="width: 200px; margin-left: 100px;">
+//
+//
+//
+//        </select>
+//
+//    </div>
 
     }
 

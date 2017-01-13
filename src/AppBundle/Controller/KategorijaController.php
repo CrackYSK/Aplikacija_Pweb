@@ -10,6 +10,10 @@ use AppBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
+use AppBundle\Entity\User;
+
+
+
 /**
  * Class KategorijaController
  * @package AppBundle\Controller
@@ -32,12 +36,19 @@ class KategorijaController extends BaseController
      */
     public function newAction()
     {
+
+
+
+
+
         $form = $this->createForm(KategorijaType::class, new Kategorija(), array(
             'action' => $this->generateUrl('kategorija_insert'),
+
         ));
 
         return $this->render('AppBundle:Kategorija:new.html.twig', array(
             'form' => $form->createView(),
+
         ));
     }
 

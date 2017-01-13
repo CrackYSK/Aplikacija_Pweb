@@ -1,9 +1,9 @@
-{% extends "::base.html.twig" %}
+{% extends 'AppBundle:Admin:admin_base.html.twig' %}
 {% form_theme form 'theme/bootstrap_3_horizontal_layout.html.twig' %}
-{% block title %}AppBundle:Dogadjaj:new{% endblock %}
+{% block title %}Нови догађај{% endblock %}
 
 {% block body %}
-    <h1>Welcome to the Dogadjaj:new page</h1>
+    <h1>Нови догађај</h1>
     {{ form_start(form) }}      {#priprema#}
     {{ form_widget(form) }}     {# kreira formu , poziva buildForm#}
     {{ form_end(form) }}

@@ -1,9 +1,9 @@
-{% extends "::base.html.twig" %}
+{% extends 'AppBundle:Admin:admin_base.html.twig' %}
 {% form_theme form 'theme/bootstrap_3_horizontal_layout.html.twig' %}
-{% block title %}AppBundle:Dogadjaj:edit{% endblock %}
+{% block title %}Измена догађаја{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Dogadjaj:edit page</h1>
+<h1>Измени догађај</h1>
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}

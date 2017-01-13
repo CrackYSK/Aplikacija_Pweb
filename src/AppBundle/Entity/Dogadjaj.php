@@ -103,5 +103,15 @@ class Dogadjaj
     {
         return $this->ime;
     }
+    
+    public function getPredsednik()
+    {
+        return $this->predsednik;
+    }
+
+    public function setPredsednik(User $user)
+    {
+        $this->predsednik=$user;
+    }
 }
 
