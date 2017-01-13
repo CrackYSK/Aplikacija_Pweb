@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Kategorija:index{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Dogadjaj:index page</h1>
+    <table class="table table-bordered">
+        <thead>
+        <td>Naziv Dogadjaja</td>
+        <td>Naziv kategorije</td>
+        <td>Broj slobodnih mesta</td>
+        </thead>
+        <tbody>
+        {% for takmicenje in takmicenja %}
+            <tr>
+                <td>{{ takmicenje.dogadjaj.ime }}</td>
+                <td>{{ takmicenje.kategorija.naziv  }}</td>
+                <td>{{ takmicenje.brojSlobodnihMesta }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

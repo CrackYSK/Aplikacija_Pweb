@@ -98,5 +98,10 @@ class Dogadjaj
     {
         return $this->datum;
     }
+
+    public function __toString()
+    {
+        return $this->ime;
+    }
 }
 

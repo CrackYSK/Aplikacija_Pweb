@@ -168,5 +168,10 @@ class Kategorija
     {
         return $this->studentska;
     }
+
+    public function __toString()
+    {
+        return $this->naziv;
+    }
 }
 

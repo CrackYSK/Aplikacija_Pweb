@@ -62,6 +62,17 @@ class Takmicenje
      */
     private $kategorija;
 
+    /**
+     * @return Kategorija
+     */
+    public function getKategorija(){
+        return $this->kategorija;
+    }
+
+    public function setKategorija(Kategorija $kategorija){
+        $this->kategorija = $kategorija;
+    }
+
 
     /**
      * @var Dogadjaj
@@ -70,6 +81,17 @@ class Takmicenje
      * @ORM\JoinColumn(name="dogadjaj_id", referencedColumnName="id")
      */
     private $dogadjaj;
+
+    /**
+     * @return Dogadjaj
+     */
+    public function getDogadjaj() {
+        return $this->dogadjaj;
+    }
+
+    public function setDogadjaj(Dogadjaj $dogadjaj) {
+        $this->dogadjaj = $dogadjaj;
+    }
 
     /**
      * Set brojSlobodnihMesta

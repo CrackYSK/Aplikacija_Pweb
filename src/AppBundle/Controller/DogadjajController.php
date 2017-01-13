@@ -25,7 +25,6 @@ class DogadjajController extends BaseController
     /**
      * @Route("/", name="dogadjaj_sve" )
      */
-
     public function indexAction()
     {
         $dogadjaji = $this->getRepository('AppBundle:Dogadjaj')->findAll();

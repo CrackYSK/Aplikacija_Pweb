@@ -15,7 +15,10 @@
                 <td>{{ dogadjaj.ime }}</td>
                 <td>{{ dogadjaj.datum|date("m/d/Y")  }}</td>
                 <td><a href="{{ path('dogadjaj_obrisi', {'id': dogadjaj.id}) }}">Obrisi</a>
-                    <a href="{{ path('dogadjaj_dohvati', {'id': dogadjaj.id}) }}">Izmeni</a></td>
+                    <a href="{{ path('dogadjaj_dohvati', {'id': dogadjaj.id}) }}">Izmeni</a>
+                    <a href="{{ path('takmicenje_novo', {'id': dogadjaj.id}) }}">Dodaj takmicenje</a>
+
+                </td>
             </tr>
         {% endfor %}
         </tbody>
