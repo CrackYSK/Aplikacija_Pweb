@@ -98,5 +98,15 @@ class Dogadjaj
     {
         return $this->datum;
     }
+
+    public function getPredsednik()
+    {
+        return $this->predsednik;
+    }
+
+    public function setPredsednik(User $user)
+    {
+        $this->predsednik=$user;
+    }
 }
 

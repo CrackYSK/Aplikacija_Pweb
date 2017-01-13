@@ -4,38 +4,50 @@
 
 {% block body %}
     <div class="container">
-    <h1 style="text-align:center">Преглед категорија</h1>
-    <table class="table table-bordered">
-        <thead>
-        <td>Назив</td>
-        <td>Број тимова</td>
-        <td>Број чланова</td>
-        <td>Студентска</td>
-        <td>Акције</td>
-        </thead>
-        <tbody>
-        {% for kategorija in kategorije %}
-            <tr>
-                <td>{{ kategorija.naziv }}</td>
-                <td>{{ kategorija.brojTimova }}</td>
-                <td>{{ kategorija.brojClanovaTima }}</td>
-                <td>{{ kategorija.studentska }}</td>
-                <td>
-                    <a class="btn btn-primary btn-xs" role="button" href="{{ path('kategorija_edit', {'id': kategorija.id}) }}">
-                        Измени</a>
+        <h1 style="text-align:center">Преглед категорија</h1>
+        <table class="table table-bordered">
+            <thead>
+            <td>Назив</td>
+            <td>Број тимова</td>
+            <td>Број чланова</td>
+            <td>Студентска</td>
+            <td>Акције</td>
+            </thead>
+            <tbody>
+            {% for kategorija in kategorije %}
 
-                    <a class="btn btn-danger btn-xs" role="button" href="{{ path('kategorija_delete', {'id': kategorija.id}) }}">
-                        Обриши</a>
+                <tr>
+                    <td>{{ kategorija.naziv }}</td>
+                    <td>{{ kategorija.brojTimova }}</td>
+                    <td>{{ kategorija.brojClanovaTima }}</td>
+                    <td>
+                        {% if  kategorija.studentska %}
 
 
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                            <span class="glyphicon glyphicon-ok"></span>
 
-    <a class="btn btn-success" role="button" href="{{ path('kategorija_nova') }}">
-        Додај нову категорију</a>
+                        {% else %}
+                            <span class="glyphicon glyphicon-remove"></span>
+                        {% endif %}
+
+
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" role="button" href="{{ path('kategorija_edit', {'id': kategorija.id}) }}">
+                            Измени</a>
+
+                        <a class="btn btn-danger btn-xs" role="button" href="{{ path('kategorija_delete', {'id': kategorija.id}) }}">
+                            Обриши</a>
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-success" role="button" href="{{ path('kategorija_nova') }}">
+            Додај нову категорију</a>
 
     </div>
 {% endblock %}

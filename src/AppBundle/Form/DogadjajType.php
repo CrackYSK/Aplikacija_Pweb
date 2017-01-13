@@ -2,10 +2,12 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class DogadjajType extends AbstractType
 {
@@ -14,9 +16,26 @@ class DogadjajType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('ime')
-            ->add('datum')
-            ->add('save', SubmitType::class);
+        $em=$options['manager']->getRepository('AppBundle:User');
+        $query = $em->createQueryBuilder('s')
+                    ->select('u')
+                    ->from('AppBundle:User', 'u')
+                    ->where('u.roles LIKE :id')
+                    ->setParameter('id', '%ROLE_KOMISIJA%')
+                    ->getQuery();
+        $komisija = $query->getResult();
+
+
+        $builder->add('ime',null,  array('label' => 'Назив'))
+            ->add('datum',null,  array('label' => 'Датум'))
+            ->add('predsednik', EntityType::class, array(
+                'class' => 'AppBundle:User',
+                'choices' => $komisija
+            ))
+            ->add('save', SubmitType::class,array(
+                'attr' => array('class' => 'btn-success btn'),'label' => 'Сачувај'
+            ));
+        //,array('label' => 'Сачувај')
     }
 
     /**
@@ -25,7 +44,8 @@ class DogadjajType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Dogadjaj'
+            'data_class' => 'AppBundle\Entity\Dogadjaj',
+            'manager' => null
         ));
     }
 
