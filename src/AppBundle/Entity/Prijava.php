@@ -108,5 +108,22 @@ class Prijava
     {
         return $this->status;
     }
+
+    public function getTakmicenje() {
+        return $this->takmicenje;
+    }
+
+    public function setTakmicenje(Takmicenje $takmicenje) {
+        $this->takmicenje = $takmicenje;
+    }
+
+    public function getTim() {
+        return $this->tim;
+    }
+
+    public function setTim(Tim $tim) {
+        $this->tim = $tim;
+    }
+
 }
 

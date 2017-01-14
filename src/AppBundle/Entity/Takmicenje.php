@@ -121,5 +121,10 @@ class Takmicenje
     {
         return $this->brojSlobodnihMesta;
     }
+
+    public function __toString()
+    {
+        return $this->getKategorija()->getNaziv();
+    }
 }
 

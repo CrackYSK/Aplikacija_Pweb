@@ -79,7 +79,7 @@ class DogadjajController extends BaseController
         $dogadjaj = $this->getRepository('AppBundle:Dogadjaj')->find($id);
         $form = $this->createForm(DogadjajType::class, $dogadjaj, array(
             'action' => $this->generateUrl('dogadjaj_izmeni', array('id' => $id)),
-            'manager'=> $this->getDoctrine()->getManager(),
+            'manager' => $this->getDoctrine()->getManager()
         ));
 
         return $this->render('AppBundle:Dogadjaj:edit.html.twig', array(
@@ -95,7 +95,7 @@ class DogadjajController extends BaseController
     {
         $dogadjaj = $this->getRepository('AppBundle:Dogadjaj')->find($id);
         $form = $this->createForm(DogadjajType::class, $dogadjaj, array(
-            'manager'=> $this->getDoctrine()->getManager(),
+            'manager' => $this->getDoctrine()->getManager()
         ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
