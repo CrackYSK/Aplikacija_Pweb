@@ -4,12 +4,17 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Takmicenje
  *
  * @ORM\Table(name="takmicenje")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TakmicenjeRepository")
+ * @UniqueEntity(
+ *     fields={"dogadjaj","kategorija"},
+ *     errorPath="kategorija"
+ *     )
+ *
  */
 class Takmicenje
 {

@@ -37,10 +37,6 @@ class KategorijaController extends BaseController
     public function newAction()
     {
 
-
-
-
-
         $form = $this->createForm(KategorijaType::class, new Kategorija(), array(
             'action' => $this->generateUrl('kategorija_insert'),
 

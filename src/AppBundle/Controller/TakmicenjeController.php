@@ -55,7 +55,7 @@ class TakmicenjeController extends BaseController
     }
 
     /**
-     * @Route("{id}/new", name="takmicenje_insert")
+     * @Route("/{id}/new", name="takmicenje_insert")
      * @Method("POST")
      */
     public function insertAction(Request $request, $id)
@@ -72,12 +72,27 @@ class TakmicenjeController extends BaseController
 //            forma sadrzi objekat takmicenje
             $this->persist($form->getData());
             //upisuje u bazu
-            return $this->forward('AppBundle:Takmicenje:index', array('success' => true));
+            return $this->forward('AppBundle:Dogadjaj:show',array('success'=> true,'id'=>$id));
         } else {
             return $this->render('AppBundle:Takmicenje:new.html.twig', array(
                 'form' => $form->createView(),
             ));
         }
+    }
+
+    /**
+     * @Route("/{takmicenje_id}-{dogadjaj_id}/delete", name="takmicenje_obrisi")
+     * @Method("POST")
+     */
+
+    public function deleteAction($takmicenje_id, $dogadjaj_id, Request $request)
+    {
+        $em = $this->get('doctrine')->getEntityManager();
+        $takmicenje = $em->getRepository('AppBundle:Takmicenje')->findOneById($takmicenje_id);
+        $em->remove($takmicenje);
+        $em->flush();
+
+        return $this->forward('AppBundle:Dogadjaj:show',array('success'=> true,'id'=>$dogadjaj_id));
     }
 
 }

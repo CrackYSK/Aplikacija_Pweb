@@ -123,4 +123,35 @@ class DogadjajController extends BaseController
         return $this->redirect($this->generateUrl('dogadjaj_sve'));
     }
 
+    /**
+     * @Route("/{id}/details", name="dogadjaj_detaljno")
+     * @Method("GET")
+     */
+    public function showAction($id)
+    {
+
+        $repository = $this->getRepository('AppBundle:Takmicenje');
+        $takmicenja = $repository->findBy(
+            array('dogadjaj' => $id));
+
+        $repository = $this->getRepository('AppBundle:SmotraRadova');
+        $smotra = $repository->findOneBy(
+            array('dogadjaj' => $id));
+
+        $repository = $this->getRepository('AppBundle:Dogadjaj');
+        $dogadjaj=$repository->findOneById(
+            array('id'=>$id));
+
+        $repository = $this->getRepository('AppBundle:Rad');
+        if ($smotra) {
+            $radovi = $repository->findBy(
+                array('smotraRadova' => $smotra));
+            return $this->render('AppBundle:Dogadjaj:show.html.twig',
+                array('dogadjaj' => $dogadjaj, 'takmicenja' => $takmicenja, 'smotra'=>$smotra, 'radovi'=>$radovi));
+
+        }
+        return $this->render('AppBundle:Dogadjaj:show.html.twig',
+            array('dogadjaj' => $dogadjaj, 'takmicenja' => $takmicenja, 'smotra'=>$smotra));
+    }
+
 }

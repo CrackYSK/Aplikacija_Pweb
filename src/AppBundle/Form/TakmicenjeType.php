@@ -34,7 +34,9 @@ class TakmicenjeType extends AbstractType
             'class' => 'AppBundle:Kategorija',
             'choices' => $kategorije
         ))
-            ->add('save', SubmitType::class);
+            ->add('save', SubmitType::class,array(
+                'attr' => array('class' => 'btn-success btn')
+            ));
     }
 
 
