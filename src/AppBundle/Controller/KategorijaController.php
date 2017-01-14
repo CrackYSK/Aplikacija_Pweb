@@ -107,6 +107,7 @@ class KategorijaController extends BaseController
 
     /**
      * @Route("/{id}/obrisi", name="kategorija_delete")
+     * @Method("POST")
      */
     public function deleteAction($id, Request $request)
     {

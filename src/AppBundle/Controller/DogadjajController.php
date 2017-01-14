@@ -79,6 +79,7 @@ class DogadjajController extends BaseController
         $dogadjaj = $this->getRepository('AppBundle:Dogadjaj')->find($id);
         $form = $this->createForm(DogadjajType::class, $dogadjaj, array(
             'action' => $this->generateUrl('dogadjaj_izmeni', array('id' => $id)),
+            'manager'=> $this->getDoctrine()->getManager(),
         ));
 
         return $this->render('AppBundle:Dogadjaj:edit.html.twig', array(
@@ -93,7 +94,9 @@ class DogadjajController extends BaseController
     public function updateAction($id, Request $request)
     {
         $dogadjaj = $this->getRepository('AppBundle:Dogadjaj')->find($id);
-        $form = $this->createForm(DogadjajType::class, $dogadjaj);
+        $form = $this->createForm(DogadjajType::class, $dogadjaj, array(
+            'manager'=> $this->getDoctrine()->getManager(),
+        ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persist($form->getData());
@@ -108,16 +111,16 @@ class DogadjajController extends BaseController
 
     /**
      * @Route("/{id}/obrisi", name="dogadjaj_obrisi")
-     * @Method("GET")
+     * @Method("POST")
      */
     public function deleteAction($id, Request $request)
     {
         $em = $this->get('doctrine')->getEntityManager();
-        $dogadjaj = $em->getRepository('AppBundle:Kategorija')->findOneById($id);
+        $dogadjaj = $em->getRepository('AppBundle:Dogadjaj')->findOneById($id);
         $em->remove($dogadjaj);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('kategorija_sve'));
+        return $this->redirect($this->generateUrl('dogadjaj_sve'));
     }
 
 }
