@@ -110,20 +110,14 @@ class DogadjajController extends BaseController
      * @Route("/{id}/obrisi", name="dogadjaj_obrisi")
      * @Method("GET")
      */
-    public function deleteAction($id)
+    public function deleteAction($id, Request $request)
     {
-        return $this->render('AppBundle:Dogadjaj:delete.html.twig', array(// ...
-        ));
-    }
+        $em = $this->get('doctrine')->getEntityManager();
+        $dogadjaj = $em->getRepository('AppBundle:Kategorija')->findOneById($id);
+        $em->remove($dogadjaj);
+        $em->flush();
 
-    /**
-     * @Route("/{id}", name="kategorija_show")
-     */
-
-    public function showAction($id)
-    {
-        return $this->render('AppBundle:Kategorija:show.html.twig', array(// ...
-        ));
+        return $this->redirect($this->generateUrl('kategorija_sve'));
     }
 
 }

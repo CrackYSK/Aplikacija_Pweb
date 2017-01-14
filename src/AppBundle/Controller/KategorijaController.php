@@ -106,21 +106,15 @@ class KategorijaController extends BaseController
     }
 
     /**
-     * @Route("/obrisi", name="kategorija_delete")
+     * @Route("/{id}/obrisi", name="kategorija_delete")
      */
-    public function deleteAction()
+    public function deleteAction($id, Request $request)
     {
-        return $this->render('AppBundle:Kategorija:delete.html.twig', array(// ...
-        ));
-    }
+        $em = $this->get('doctrine')->getEntityManager();
+        $katerorija = $em->getRepository('AppBundle:Kategorija')->findOneById($id);
+        $em->remove($katerorija);
+        $em->flush();
 
-    /**
-     * @Route("/{id}", name="kategorija_show")
-     */
-    public function showAction($id)
-    {
-        return $this->render('AppBundle:Kategorija:show.html.twig', array(// ...
-        ));
+        return $this->redirect($this->generateUrl('kategorija_sve'));
     }
-
 }
