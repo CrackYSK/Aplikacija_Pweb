@@ -8,7 +8,7 @@
 
 namespace AppBundle\Controller;
 
-use FOS\UserBundle\Controller\RegistrationController as BaseController;
+use FOS\UserBundle\Controller\RegistrationController as FOSBaseController;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class RegistrationController extends BaseController
+class RegistrationController extends FOSBaseController
 {
     /**
      * @param Request $request

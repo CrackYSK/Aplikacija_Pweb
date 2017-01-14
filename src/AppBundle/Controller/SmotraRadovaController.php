@@ -16,13 +16,11 @@ use AppBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
-
 /**
  * Class SmotraRadovaController
  * @package AppBundle\Controller
  * @Route("/admin/dogadjaj/smotra")
  */
-
 class SmotraRadovaController extends BaseController
 {
     /**
@@ -32,17 +30,22 @@ class SmotraRadovaController extends BaseController
     public function insertAction(Request $request, $id)
     {
 
-        $repository=$this->getRepository('AppBundle:Dogadjaj');
-        $dogadjaj=$repository->findOneBy(array(
-            'id'=> $id
+        $repository = $this->getRepository('AppBundle:Dogadjaj');
+        $dogadjaj = $repository->findOneBy(array(
+            'id' => $id
         ));
 
-        $smotra=new SmotraRadova();
+        $smotra = $this->getRepository('AppBundle:SmotraRadova')->findOneBy(array('dogadjaj' => $id));
+
+        if (!$smotra) {
+            $smotra = new SmotraRadova();
+        }
+
         $smotra->setDogadjaj($dogadjaj);
 
         $this->persist($smotra);
 
-        return $this->forward('AppBundle:Dogadjaj:show',array('success'=> true,'id'=>$id));
+        return $this->forward('AppBundle:Dogadjaj:show', array('success' => true, 'id' => $id));
 
     }
 

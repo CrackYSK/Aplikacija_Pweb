@@ -1,0 +1,41 @@
+{% extends 'AppBundle:Admin:admin_base.html.twig' %}
+
+{% block title %}Преглед категорија{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 style="text-align:center">Преглед radova</h1>
+        <table class="table table-bordered">
+            <thead>
+            <td>id</td>
+            <td>rad</td>
+            <td>Акције</td>
+            </thead>
+            <tbody>
+            {% for rad in sr %}
+
+                <tr>
+                    <td>{{ rad.id }}</td>
+                    <td>{{ rad.rad }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" role="button"
+                           href="{{ path('smotraradova_edit', {'id': rad.id}) }}">
+                            Измени</a>
+
+                        <form style="display:inline-block; margin-top: 5px;"
+                              action='{{ path('smotraradova_delete', {'id': rad.id}) }}' method="post">
+                            <input type="submit" class="btn btn-danger btn-xs" value="Обриши">
+                        </form>
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-success" role="button" href="{{ path('smotraradova_nova') }}">
+            NOVI RAD</a>
+
+    </div>
+{% endblock %}
