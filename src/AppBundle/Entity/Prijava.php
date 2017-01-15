@@ -39,7 +39,7 @@ class Prijava
     /**
      * @var Tim
      *
-     * @ORM\OneToOne(targetEntity="Tim", mappedBy="prijava")
+     * @ORM\OneToOne(targetEntity="Tim", mappedBy="prijava", cascade={"persist", "remove"})
      */
     private $tim;
 
@@ -47,7 +47,7 @@ class Prijava
      * @var Takmicenje
      *
      * @ORM\ManyToOne(targetEntity="Takmicenje", inversedBy="prijava")
-     * @ORM\JoinColumn(name="takmicenje_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="takmicenje_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $takmicenje;
 

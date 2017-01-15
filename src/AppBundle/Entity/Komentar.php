@@ -37,7 +37,7 @@ class Komentar
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="komentar")
-     * @ORM\JoinColumn(name="id_komentator", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_komentator", referencedColumnName="id", onDelete="CASCADE")
      */
     private $komentator;
 

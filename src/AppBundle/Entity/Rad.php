@@ -40,7 +40,7 @@ class Rad
      * @var SmotraRadova
      *
      * @ORM\ManyToOne(targetEntity="SmotraRadova", inversedBy="rad")
-     * @ORM\JoinColumn(name="smotra_radova_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="smotra_radova_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $smotraRadova;
 

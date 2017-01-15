@@ -32,7 +32,7 @@ class Autor
      * @var Rad
      *
      * @ORM\ManyToOne(targetEntity="Rad", inversedBy="autor")
-     * @ORM\JoinColumn(name="rad_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="rad_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $rad;
 
@@ -41,7 +41,7 @@ class Autor
      * @var Student
      *
      * @ORM\ManyToOne(targetEntity="Student", inversedBy="autor")
-     * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $student;
 

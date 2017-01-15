@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class PrijavaType extends AbstractType
 {
@@ -21,7 +22,6 @@ class PrijavaType extends AbstractType
     {
 
         $takmicenja = $options['manager']->getRepository('AppBundle:Takmicenje')->findAll();
-
         $builder->add('takmicenje', EntityType::class, array(
             'class' => 'AppBundle:Takmicenje',
             'choices' => $takmicenja,
@@ -34,7 +34,13 @@ class PrijavaType extends AbstractType
             'label' => 'Тим:'
         ));
 
-        $builder->add('SACUVAJ', SubmitType::class);
+//        $builder->add('captcha', CaptchaType::class, array(
+//            'label' => 'Потврда'
+//        ));
+
+        $builder->add('save', SubmitType::class, array(
+            'label' => 'Сачувај'));
+
     }
     
     /**

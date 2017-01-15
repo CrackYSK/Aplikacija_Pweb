@@ -8,6 +8,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Srednjoskolac;
+use AppBundle\Entity\Student;
+use AppBundle\Entity\Ucesnik;
 use AppBundle\Form\PrijavaType;
 use AppBundle\Form\TimType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Tim;
 use AppBundle\Entity\Prijava;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Class RegistrujTimController
@@ -48,9 +52,31 @@ class RegistrujTimController extends BaseController
     public function insertAction(Request $request)
     {
         $id = $request->request->get('id');
-        $takmicenje = $this->getRepository('AppBundle:Takmicenje')->find($id);
+        $prijava = $request->request->get('appbundle_prijava');
+        $id_submit = $prijava['takmicenje'];
+        $takmicenje = null;
+        if ($id !== null) {
+            $takmicenje = $this->getRepository('AppBundle:Takmicenje')->find($id);
+        } else {
+            $takmicenje = $this->getRepository('AppBundle:Takmicenje')->find($id_submit);
+        }
+
         $kategorija = $takmicenje->getKategorija();
-        $form = $this->createForm(PrijavaType::class, new Prijava(), array(
+        $prijava = new Prijava();
+        $tim = new Tim();
+        $prijava->setTim($tim);
+        if ($kategorija->getStudentska()) {
+            for ($i = 0; $i < $kategorija->getBrojClanovaTima(); $i++) {
+                $ucesnik = new Student();
+                $tim->getUcesnik()->add($ucesnik);
+            }
+        } else {
+            for ($i = 0; $i < $kategorija->getBrojClanovaTima(); $i++) {
+                $ucesnik = new Srednjoskolac();
+                $tim->getUcesnik()->add($ucesnik);
+            }
+        }
+        $form = $this->createForm(PrijavaType::class, $prijava, array(
             'manager' => $this->getDoctrine()->getManager(),
             'broj_clanova' => $kategorija->getBrojClanovaTima(),
             'studentska' => $kategorija->getStudentska()
@@ -59,6 +85,14 @@ class RegistrujTimController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+            $form->getData()->setDatum(new \DateTime());
+            $form->getData()->setStatus(false);
+            $tim = $form->getData()->getTim();
+            $tim->setPrijava($form->getData());
+            $ucesnici = $tim->getUcesnik();
+            foreach ($ucesnici as $ucesnik) {
+                $ucesnik->setTim($tim);
+            }
             $this->persist($form->getData());
             return $this->forward('AppBundle:Index:index', array('success' => true));
         } else {

@@ -52,7 +52,7 @@ class Ucesnik
     /**
      * @var string
      *
-     * @ORM\Column(name="CV", type="string", length=100)
+     * @ORM\Column(name="CV", type="string", length=100, nullable=true)
      */
     private $cV;
 
@@ -60,7 +60,7 @@ class Ucesnik
      * @var Tim
      *
      * @ORM\ManyToOne(targetEntity="Tim", inversedBy="ucesnik")
-     * @ORM\JoinColumn(name="tim_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="tim_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $tim;
 
@@ -192,6 +192,22 @@ class Ucesnik
     public function getCV()
     {
         return $this->cV;
+    }
+
+    /**
+     * @return Tim
+     */
+    public function getTim()
+    {
+        return $this->tim;
+    }
+
+    /**
+     * @param Tim $tim
+     */
+    public function setTim($tim)
+    {
+        $this->tim = $tim;
     }
 }
 

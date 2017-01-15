@@ -47,14 +47,14 @@ class Tim
      * @var Prijava
      *
      * @ORM\OneToOne(targetEntity="Prijava", inversedBy="tim")
-     * @ORM\JoinColumn(name="prijava_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="prijava_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $prijava;
 
     /**
      * @var Ucesnik
      *
-     * @ORM\OneToMany(targetEntity="Ucesnik", mappedBy="tim")
+     * @ORM\OneToMany(targetEntity="Ucesnik", mappedBy="tim", cascade={"persist", "remove"})
      */
     private $ucesnik;
 
@@ -151,6 +151,22 @@ class Tim
 
     public function setUcesnik(Ucesnik $ucesnik) {
         $this->ucesnik=$ucesnik;
+    }
+
+    /**
+     * @return Prijava
+     */
+    public function getPrijava()
+    {
+        return $this->prijava;
+    }
+
+    /**
+     * @param Prijava $prijava
+     */
+    public function setPrijava($prijava)
+    {
+        $this->prijava = $prijava;
     }
 }
 

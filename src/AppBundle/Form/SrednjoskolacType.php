@@ -7,13 +7,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SrednjoskolacType extends AbstractType
+class SrednjoskolacType extends UcesnikType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder->add('skola', TextType::class, array(
             'label' => 'Школа'
         ))->add('odeljenje', TextType::class, array(

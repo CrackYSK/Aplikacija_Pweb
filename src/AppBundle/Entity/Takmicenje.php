@@ -62,7 +62,7 @@ class Takmicenje
      * @var Kategorija
      *
      * @ORM\ManyToOne(targetEntity="Kategorija", inversedBy="takmicenje")
-     * @ORM\JoinColumn(name="kategorija_id", referencedColumnName="id");
+     * @ORM\JoinColumn(name="kategorija_id", referencedColumnName="id", onDelete="CASCADE");
      *
      */
     private $kategorija;
@@ -83,7 +83,7 @@ class Takmicenje
      * @var Dogadjaj
      *
      * @ORM\ManyToOne(targetEntity="Dogadjaj")
-     * @ORM\JoinColumn(name="dogadjaj_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="dogadjaj_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $dogadjaj;
 

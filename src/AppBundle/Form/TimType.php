@@ -20,17 +20,22 @@ class TimType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('naziv', TextType::class, array('label' => 'Назив'));
-        for($i = 0; $i < $options['broj_clanova']; $i++) {
-            $builder->add('ucesnik_' . ($i + 1), UcesnikType::class, array(
-                'label' => ($i + 1) . '.члан'
-            ));
+        if ($options['broj_clanova'] > 0) {
             if ($options['studentska']) {
-                $builder->add('student_' . ($i + 1), StudentType::class, array(
-                    'label' => ' '
+                $builder->add('ucesnik', CollectionType::class, array(
+                    'entry_type' => StudentType::class,
+                    'entry_options' => array(
+                        'label' => ' '
+                    ),
+                    'label' => 'Учесници'
                 ));
             } else {
-                $builder->add('srednjoskolac_' . ($i + 1), SrednjoskolacType::class, array(
-                    'label' => ' '
+                $builder->add('ucesnik', CollectionType::class, array(
+                    'entry_type' => SrednjoskolacType::class,
+                    'entry_options' => array(
+                        'label' => ' '
+                    ),
+                    'label' => 'Учесници'
                 ));
             }
         }

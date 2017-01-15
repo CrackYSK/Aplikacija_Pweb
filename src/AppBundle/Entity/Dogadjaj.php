@@ -37,7 +37,7 @@ class Dogadjaj
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="dogadjaj")
-     * @ORM\JoinColumn(name="id_predsednik", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_predsednik", referencedColumnName="id", onDelete="CASCADE")
      */
     private $predsednik;
 

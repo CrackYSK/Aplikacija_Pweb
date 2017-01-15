@@ -40,7 +40,7 @@ class SmotraRadova
      * @var Dogadjaj
      *
      * @ORM\OneToOne(targetEntity="Dogadjaj")
-     * @ORM\JoinColumn(name="dogadjaj_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="dogadjaj_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $dogadjaj;
 
