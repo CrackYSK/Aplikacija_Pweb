@@ -41,6 +41,29 @@ class Komentar
      */
     private $komentator;
 
+    /**
+     * @var Prijava
+     *
+     * @ORM\ManyToOne(targetEntity="Prijava")
+     * @ORM\JoinColumn(name="prijava_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $prijava;
+
+    /**
+     * @return Prijava
+     */
+    public function getPrijava()
+    {
+        return $this->prijava;
+    }
+
+    /**
+     * @param Prijava $prijava
+     */
+    public function setPrijava($prijava)
+    {
+        $this->prijava = $prijava;
+    }
 
     /**
      * Get id
