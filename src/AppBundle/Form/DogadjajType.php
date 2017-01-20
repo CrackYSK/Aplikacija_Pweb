@@ -30,7 +30,8 @@ class DogadjajType extends AbstractType
             ->add('datum',null,  array('label' => 'Датум'))
             ->add('predsednik', EntityType::class, array(
                 'class' => 'AppBundle:User',
-                'choices' => $komisija
+                'choices' => $komisija,
+                'label' => 'Председник'
             ))
             ->add('save', SubmitType::class,array(
                 'attr' => array('class' => 'btn-success btn'),'label' => 'Сачувај'

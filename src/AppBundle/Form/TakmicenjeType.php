@@ -28,14 +28,17 @@ class TakmicenjeType extends AbstractType
             'query_builder' => function (EntityRepository $er) use ($id) {
                 return $er->createQueryBuilder('d')
                     ->where('d.id = '.$id );
-            }
+            },
+            'label'=> "Догађај"
         ))
             ->add('kategorija', EntityType::class, array(
             'class' => 'AppBundle:Kategorija',
-            'choices' => $kategorije
+            'choices' => $kategorije,
+                'label'=> "Категорија"
         ))
             ->add('save', SubmitType::class,array(
-                'attr' => array('class' => 'btn-success btn')
+                'attr' => array('class' => 'btn-success btn'),
+                'label'=> "Сачувај"
             ));
     }
 
