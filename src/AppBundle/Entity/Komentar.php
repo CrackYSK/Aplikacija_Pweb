@@ -122,5 +122,21 @@ class Komentar
     {
         return $this->za;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getKomentator()
+    {
+        return $this->komentator;
+    }
+
+    /**
+     * @param mixed $komentator
+     */
+    public function setKomentator($komentator)
+    {
+        $this->komentator = $komentator;
+    }
 }
 

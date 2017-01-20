@@ -145,12 +145,20 @@ class Tim
         return $this->nagrada;
     }
 
-    public function getUcesnik() {
+    /**
+     * @return ArrayCollection
+     */
+    public function getUcesnik()
+    {
         return $this->ucesnik;
     }
 
-    public function setUcesnik(Ucesnik $ucesnik) {
-        $this->ucesnik=$ucesnik;
+    /**
+     * @param ArrayCollection $ucesnik
+     */
+    public function setUcesnik($ucesnik)
+    {
+        $this->ucesnik = $ucesnik;
     }
 
     /**

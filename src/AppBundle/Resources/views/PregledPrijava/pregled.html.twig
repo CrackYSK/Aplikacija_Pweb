@@ -1,0 +1,40 @@
+{% extends 'AppBundle:Admin:admin_base.html.twig' %}
+
+{% block title %}Преглед пријава{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ takmicenje.kategorija.naziv }}: Тимови</h1>
+        <table class="table table-bordered">
+            <thead>
+            <td>Назив</td>
+            <td>Чланови</td>
+            <td>Акције</td>
+            </thead>
+            <tbody>
+            {% for prijava in prijave %}
+                <tr>
+                    <td>{{ prijava.tim.naziv }}</td>
+                    <td>
+                        <table class="table">
+                            <tbody>
+                            {% for takmicar in prijava.tim.ucesnik %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ takmicar.ime }} {{ takmicar.prezime }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <a class="btn btn-info btn-xs" role="button"
+                           href="{{ path('prijava_detaljno', {'id': takmicenje.id, 'pid': prijava.id}) }}">
+                            Детаљније</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
