@@ -94,6 +94,7 @@ class RegistrujTimController extends BaseController
                 $ucesnik->setTim($tim);
             }
             $this->persist($form->getData());
+            return $this->redirectToRoute('homepage');
             return $this->forward('AppBundle:Index:index', array('success' => true));
         } else {
             return $this->render('AppBundle:Registruj:registruj.html.twig', array(

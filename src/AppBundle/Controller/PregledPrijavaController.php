@@ -77,12 +77,22 @@ class PregledPrijavaController extends BaseController
         if ($takmicenje->getDogadjaj()->getPredsednik() === $user) {
             $predsednik = true;
         }
+        $postoji = false;
+        $komentar_id = null;
+        foreach ($komentari as $komentar) {
+            if ($komentar->getKomentator() == $user) {
+                $postoji = true;
+                $komentar_id = $komentar->getId();
+            }
+        }
 
         return $this->render('AppBundle:PregledPrijava:show.html.twig', array(
             'prijava' => $prijava,
             'komentari' => $komentari,
             'komisija' => $komisija,
-            'predsednik' => $predsednik
+            'predsednik' => $predsednik,
+            'postoji_komentar' => $postoji,
+            'komentar_id' => $komentar_id
         ));
     }
 
@@ -120,8 +130,7 @@ class PregledPrijavaController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persist($komentar);
-            return $this->forward('AppBundle:PregledPrijava:show', array(
-                'success' => true,
+            return $this->redirectToRoute('prijava_detaljno', array(
                 'id' => $id,
                 'pid' => $pid
             ));
@@ -131,6 +140,67 @@ class PregledPrijavaController extends BaseController
             ));
         }
 
+    }
+
+    /**
+     * @Route("/{pid}/{kid}/promeni_komentar", name="komentar_edit")
+     * @Method("GET")
+     */
+    public function editAction($id, $pid, $kid) {
+        $komentar = $this->getRepository('AppBundle:Komentar')->find($kid);
+        $form = $this->createForm(KomentarType::class, $komentar, array(
+            'action' => $this->generateUrl('komentar_update', array(
+                'id' => $id,
+                'pid' => $pid,
+                'kid' => $kid
+            ))
+        ));
+
+        return $this->render('AppBundle:PregledPrijava:komentar.html.twig', array(
+            'form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/{pid}/{kid}/promeni_komentar", name="komentar_update")
+     * @Method("POST")
+     */
+    public function updateAction($id, $pid, $kid, Request $request)
+    {
+        $prijava = $this->getRepository('AppBundle:Prijava')->find($pid);
+        $komentar = $this->getRepository('AppBundle:Komentar')->find($kid);
+        $user = $this->getUser();
+        $komentar->setPrijava($prijava);
+        $komentar->setKomentator($user);
+        $form = $this->createForm(KomentarType::class, $komentar);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->persist($komentar);
+            return $this->redirectToRoute('prijava_detaljno', array(
+                'id' => $id,
+                'pid' => $pid
+            ));
+        } else {
+            return $this->render('AppBundle:PregledPrijava:komentar.html.twig', array(
+                'form' => $form->createView()
+            ));
+        }
+    }
+
+    /**
+     * @Route("/{pid}/{kid}/obrisi", name="komentar_delete")
+     * @Method("POST")
+     */
+    public function deleteAction($id, $pid, $kid, Request $request)
+    {
+        $em = $this->getManager();
+        $komentar = $em->getRepository('AppBundle:Komentar')->find($kid);
+        $em->remove($komentar);
+        $em->flush();
+        return $this->redirectToRoute('prijava_detaljno', array(
+            'id' => $id,
+            'pid' => $pid
+        ));
     }
 
     /**

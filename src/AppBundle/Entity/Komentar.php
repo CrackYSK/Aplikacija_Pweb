@@ -3,12 +3,19 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * Komentar
  *
  * @ORM\Table(name="komentar")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\KomentarRepository")
+ * @UniqueEntity(
+ *     fields={"komentator","prijava"},
+ *     errorPath="komentator",
+ *     message="Већ постоји коментар овог члана комисије."
+ *     )
  */
 class Komentar
 {
@@ -31,7 +38,7 @@ class Komentar
     /**
      * @var int
      *
-     * @ORM\Column(name="za", type="integer")
+     * @ORM\Column(name="za", type="boolean")
      */
     private $za;
 

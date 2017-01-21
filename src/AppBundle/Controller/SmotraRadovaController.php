@@ -45,7 +45,7 @@ class SmotraRadovaController extends BaseController
 
         $this->persist($smotra);
 
-        return $this->forward('AppBundle:Dogadjaj:show', array('success' => true, 'id' => $id));
+        return $this->redirectToRoute('dogadjaj_detaljno', array('id' => $id));
 
     }
 

@@ -58,7 +58,7 @@ class KategorijaController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persist($form->getData());
-            return $this->forward('AppBundle:Kategorija:index', array('success' => true));
+            return $this->redirectToRoute('kategorija_sve');
         } else {
             return $this->render('AppBundle:Kategorija:new.html.twig', array(
                 'form' => $form->createView(),
@@ -93,7 +93,7 @@ class KategorijaController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persist($form->getData());
-            return $this->forward('AppBundle:Kategorija:index', array('success' => true));
+            return $this->redirectToRoute('kategorija_sve');
         } else {
             return $this->render('AppBundle:Kategorija:edit.html.twig', array(
                 'form' => $form->createView(),

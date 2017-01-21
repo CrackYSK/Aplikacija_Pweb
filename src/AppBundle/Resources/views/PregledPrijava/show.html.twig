@@ -12,6 +12,7 @@
                 <td>Име и презиме</td>
                 <td>Смер</td>
                 <td>Индекс</td>
+                <td>Претходна искуства</td>
                 </thead>
                 <tbody>
                 {% for ucesnik in prijava.tim.ucesnik %}
@@ -20,6 +21,7 @@
                         <td>{{ ucesnik.ime }} {{ ucesnik.prezime }}</td>
                         <td>{{ ucesnik.smer }}</td>
                         <td>{{ ucesnik.indeks }}</td>
+                        <td>{{ ucesnik.prethodnaIskustva }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -32,6 +34,7 @@
                 <td>Град</td>
                 <td>Школа</td>
                 <td>Одељење</td>
+                <td>Претходна искуства</td>
                 </thead>
                 <tbody>
                 {% for ucesnik in prijava.tim.ucesnik %}
@@ -41,23 +44,50 @@
                         <td>{{ ucesnik.grad }}</td>
                         <td>{{ ucesnik.skola }}</td>
                         <td>{{ ucesnik.odeljenje }}</td>
+                        <td>{{ ucesnik.prethodnaIskustva }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         {% endif %}
-        {#dodati ispis postojecih komentara (poslati su iz kontrolera)#}
+
+        <div>
+            <h3>Коментари:</h3>
+            {% for komentar in komentari %}
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>{{ komentar.komentator.username }} :</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="comment-post" style="overflow: auto;">
+                            <p style="font-size: 12px; word-wrap: break-word;">{{ komentar.komentar }} </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            {% endfor %}
+        </div>
         <div id="status">
             {% if prijava.status %}
-                Пријава има статус прихваћене!<br>
+                <span style="color:green; font-weight: bold;">Пријава има статус прихваћене!<br><br></span>
             {% else %}
-                Пријава има статус одбијене!<br>
+                <span style="color:red; font-weight: bold;">Пријава има статус одбијене!<br><br></span>
             {% endif %}
         </div>
         {% if predsednik %}
             <a class="btn btn-danger btn-sm" role="button" id="prihvati">Промени статус пријаве</a>
         {% elseif komisija %}
-            <a class="btn btn-success btn-sm" role="button" href="{{ path('komentar_new', {'id': prijava.takmicenje.id, 'pid': prijava.id}) }}">Додај нови коментар</a>
+            {% if postoji_komentar %}
+                <a class="btn btn-warning btn-sm" role="button" href="{{ path('komentar_edit', {'id': prijava.takmicenje.id, 'pid': prijava.id, 'kid': komentar_id}) }}">Измени коментар</a>
+                <form style="display:inline-block; margin-top: 5px;"
+                      action='{{ path('komentar_delete', {'id': prijava.takmicenje.id, 'pid': prijava.id,'kid': komentar_id}) }}' method="post">
+                    <input type="submit" class="btn btn-danger btn-sm" value="Обриши коментар">
+                </form>
+            {% else %}
+                <a class="btn btn-success btn-sm" role="button" href="{{ path('komentar_new', {'id': prijava.takmicenje.id, 'pid': prijava.id}) }}">Додај нови коментар</a>
+            {% endif %}
         {% endif %}
 
     </div>

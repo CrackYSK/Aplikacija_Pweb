@@ -61,7 +61,7 @@ class DogadjajController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persist($form->getData());
-            return $this->forward('AppBundle:Dogadjaj:index', array('success' => true));
+            return $this->redirectToRoute('dogadjaj_sve');
         } else {
             return $this->render('AppBundle:Dogadjaj:new.html.twig', array(
                 'form' => $form->createView(),
@@ -100,7 +100,7 @@ class DogadjajController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->persist($form->getData());
-            return $this->forward('AppBundle:Dogadjaj:index', array('success' => true));
+            return $this->redirectToRoute('dogadjaj_sve');
         } else {
             return $this->render('AppBundle:Dogadjaj:edit.html.twig', array(
                 'form' => $form->createView(),

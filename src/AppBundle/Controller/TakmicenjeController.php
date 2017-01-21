@@ -72,7 +72,7 @@ class TakmicenjeController extends BaseController
 //            forma sadrzi objekat takmicenje
             $this->persist($form->getData());
             //upisuje u bazu
-            return $this->forward('AppBundle:Dogadjaj:show',array('success'=> true,'id'=>$id));
+            return $this->redirectToRoute('dogadjaj_detaljno', array('id' => $id));
         } else {
             return $this->render('AppBundle:Takmicenje:new.html.twig', array(
                 'form' => $form->createView(),
@@ -92,7 +92,7 @@ class TakmicenjeController extends BaseController
         $em->remove($takmicenje);
         $em->flush();
 
-        return $this->forward('AppBundle:Dogadjaj:show',array('success'=> true,'id'=>$dogadjaj_id));
+        return $this->redirectToRoute('dogadjaj_detaljno', array('id' => $dogadjaj_id));
     }
 
 }
