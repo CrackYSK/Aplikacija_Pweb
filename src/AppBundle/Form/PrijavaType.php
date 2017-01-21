@@ -20,8 +20,21 @@ class PrijavaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $em=$options['manager']->getRepository('AppBundle:Takmicenje');
 
-        $takmicenja = $options['manager']->getRepository('AppBundle:Takmicenje')->findAll();
+
+
+        $query = $em->createQueryBuilder('s')
+            ->select('d.id')
+            ->from('AppBundle:Dogadjaj', 'd')
+            ->where('d.datum > CURRENT_DATE()')
+            ->orderBy('DATE_DIFF(CURRENT_TIME(), d.datum)', 'ASC')
+            ->setMaxResults(1)
+
+            ->getQuery();
+        $idDogadjaja=$query->getResult();
+        $takmicenja =$em->findByDogadjaj($idDogadjaja[0]['id']);
+
         $builder->add('takmicenje', EntityType::class, array(
             'class' => 'AppBundle:Takmicenje',
             'choices' => $takmicenja,

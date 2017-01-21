@@ -26,9 +26,6 @@
 	font-size: 125%;
 }
 
-#navbarCollapse>li>a {
- color : red;
-}
 .navbar .nav > li > a {
     float: none;
     color: #5FC8D6;
@@ -38,6 +35,17 @@
     float: none;
     color: #002E36;
     background-color: #5FC8D6;
+}
+.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover{
+    float: none;
+    color: #002E36;
+    background-color: #5FC8D6;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a,.navbar-default .navbar-nav .open .dropdown-menu {
+    float: none;
+    color: #ffffff;
+    background-color: #404040;
 }
 
 
