@@ -8,8 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\User;
 
 
@@ -37,6 +36,7 @@ class KategorijaController extends BaseController
     /**
      * @Route("/nova", name="kategorija_nova")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction()
     {
@@ -55,6 +55,7 @@ class KategorijaController extends BaseController
     /**
      * @Route("/nova", name="kategorija_insert")
      * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function insertAction(Request $request)
     {
@@ -73,6 +74,7 @@ class KategorijaController extends BaseController
     /**
      * @Route("/{id}/izmeni", name="kategorija_edit")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction($id)
     {
@@ -89,6 +91,7 @@ class KategorijaController extends BaseController
     /**
      * @Route("/{id}/izmeni", name="kategorija_update")
      * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction($id, Request $request)
     {
@@ -108,6 +111,7 @@ class KategorijaController extends BaseController
     /**
      * @Route("/{id}/obrisi", name="kategorija_delete")
      * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction($id, Request $request)
     {

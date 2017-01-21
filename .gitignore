@@ -14,6 +14,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/web/cv/
 /aplikacija_pweb-access.log
 /aplikacija_pweb-error.log
 /composer.json

@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class TakmicenjeController
@@ -38,6 +39,7 @@ class TakmicenjeController extends BaseController
     /**
      * @Route("/{id}/new", name="takmicenje_novo")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction($id)
     {
@@ -57,6 +59,7 @@ class TakmicenjeController extends BaseController
     /**
      * @Route("/{id}/new", name="takmicenje_insert")
      * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function insertAction(Request $request, $id)
     {
@@ -83,6 +86,7 @@ class TakmicenjeController extends BaseController
     /**
      * @Route("/{takmicenje_id}-{dogadjaj_id}/delete", name="takmicenje_obrisi")
      * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
 
     public function deleteAction($takmicenje_id, $dogadjaj_id, Request $request)

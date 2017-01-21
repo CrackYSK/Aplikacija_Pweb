@@ -24,8 +24,10 @@ class AdminController extends BaseController
      */
     public function indexAction(Request $request)
     {
+        $user = $this->getUser();
+        $admin = in_array('ROLE_ADMIN', $user->getRoles()) ? true: false;
         // replace this example code with whatever you need
-        return $this->render('AppBundle:Admin:index.html.twig');
+        return $this->render('AppBundle:Admin:index.html.twig', array('admin'=> $admin));
     }
 
     /**

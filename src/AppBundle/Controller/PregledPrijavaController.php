@@ -16,6 +16,7 @@ use AppBundle\Entity\Tim;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class PregledPrijavaController

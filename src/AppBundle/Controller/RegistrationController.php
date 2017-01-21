@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class RegistrationController extends FOSBaseController
 {
@@ -30,6 +31,7 @@ class RegistrationController extends FOSBaseController
      * @param Request $request
      *
      * @return Response
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function registerAction(Request $request)
     {

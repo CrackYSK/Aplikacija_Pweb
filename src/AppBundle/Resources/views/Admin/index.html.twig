@@ -1,7 +1,7 @@
 {% extends 'AppBundle:Admin:admin_base.html.twig' %}
 {% block body %}
     <div class="container">
-
+        {% if admin %}
         <div class="col-sm-4">
             <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%;">>>
                 <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="{{ path('registruj_korisnika') }}"> Региструј</a>
@@ -9,7 +9,7 @@
             <p>Региструј члана комисије
             </p>
         </div>
-
+        {% endif %}
         <div class="col-sm-4">
             <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%;">>>
                 <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="{{ path('kategorija_sve') }}"> Постојеће категорије</a>

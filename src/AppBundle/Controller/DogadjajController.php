@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class DogadjajController
@@ -39,6 +40,8 @@ class DogadjajController extends BaseController
     /**
      * @Route("/nova", name="dogadjaj_novi")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
+     *
      */
     public function newAction()
     {
@@ -57,6 +60,7 @@ class DogadjajController extends BaseController
     /**
      * @Route("/nova", name="dogadjaj_insert")
      * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function insertAction(Request $request)
     {
@@ -78,6 +82,7 @@ class DogadjajController extends BaseController
     /**
      * @Route("/{id}/izmeni", name="dogadjaj_dohvati")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction($id)
     {
@@ -95,6 +100,7 @@ class DogadjajController extends BaseController
     /**
      * @Route("/{id}/izmeni", name="dogadjaj_izmeni")
      * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction($id, Request $request)
     {
@@ -117,6 +123,7 @@ class DogadjajController extends BaseController
     /**
      * @Route("/{id}/obrisi", name="dogadjaj_obrisi")
      * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction($id, Request $request)
     {
