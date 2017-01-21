@@ -26,8 +26,12 @@ class KategorijaController extends BaseController
      */
     public function indexAction()
     {
+        $user = $this->getUser();
+        $admin = in_array('ROLE_ADMIN', $user->getRoles()) ? true: false;
         $kategorije = $this->getRepository('AppBundle:Kategorija')->findAll();
-        return $this->render('AppBundle:Kategorija:index.html.twig', array('kategorije' => $kategorije));
+        return $this->render('AppBundle:Kategorija:index.html.twig', array(
+            'kategorije' => $kategorije,
+            'admin' => $admin));
     }
 
     /**

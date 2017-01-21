@@ -27,8 +27,13 @@ class DogadjajController extends BaseController
      */
     public function indexAction()
     {
+        $user = $this->getUser();
+        $admin = in_array('ROLE_ADMIN', $user->getRoles()) ? true: false;
         $dogadjaji = $this->getRepository('AppBundle:Dogadjaj')->findAll();
-        return $this->render('AppBundle:Dogadjaj:index.html.twig', array('dogadjaji' => $dogadjaji));
+        return $this->render('AppBundle:Dogadjaj:index.html.twig', array(
+            'dogadjaji' => $dogadjaji,
+            'admin' => $admin
+        ));
     }
 
     /**
@@ -124,11 +129,13 @@ class DogadjajController extends BaseController
     }
 
     /**
-     * @Route("/{id}/details", name="dogadjaj_detaljno")
+     * @Route("/{id}/detalji", name="dogadjaj_detaljno")
      * @Method("GET")
      */
     public function showAction($id)
     {
+        $user = $this->getUser();
+        $admin = in_array('ROLE_ADMIN', $user->getRoles()) ? true: false;
 
         $repository = $this->getRepository('AppBundle:Takmicenje');
         $takmicenja = $repository->findBy(
@@ -147,11 +154,11 @@ class DogadjajController extends BaseController
             $radovi = $repository->findBy(
                 array('smotraRadova' => $smotra));
             return $this->render('AppBundle:Dogadjaj:show.html.twig',
-                array('dogadjaj' => $dogadjaj, 'takmicenja' => $takmicenja, 'smotra'=>$smotra, 'radovi'=>$radovi));
+                array('dogadjaj' => $dogadjaj, 'takmicenja' => $takmicenja, 'smotra'=>$smotra, 'radovi'=>$radovi, 'admin'=>$admin));
 
         }
         return $this->render('AppBundle:Dogadjaj:show.html.twig',
-            array('dogadjaj' => $dogadjaj, 'takmicenja' => $takmicenja, 'smotra'=>$smotra));
+            array('dogadjaj' => $dogadjaj, 'takmicenja' => $takmicenja, 'smotra'=>$smotra, 'admin'=>$admin));
     }
 
 }

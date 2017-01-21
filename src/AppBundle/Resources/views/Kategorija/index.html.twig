@@ -11,7 +11,9 @@
             <td>Број тимова</td>
             <td>Број чланова</td>
             <td>Студентска</td>
-            <td>Акције</td>
+            {% if admin %}
+                <td>Акције</td>
+            {% endif %}
             </thead>
             <tbody>
             {% for kategorija in kategorije %}
@@ -32,25 +34,28 @@
 
 
                     </td>
-                    <td>
-                        <a class="btn btn-primary btn-xs" role="button"
-                           href="{{ path('kategorija_edit', {'id': kategorija.id}) }}">
-                            Измени</a>
+                    {% if admin %}
+                        <td>
+                            <a class="btn btn-primary btn-xs" role="button"
+                               href="{{ path('kategorija_edit', {'id': kategorija.id}) }}">
+                                Измени</a>
 
-                        <form style="display:inline-block; margin-top: 5px;"
-                              action='{{ path('kategorija_delete', {'id': kategorija.id}) }}' method="post">
-                            <input type="submit" class="btn btn-danger btn-xs" value="Обриши">
-                        </form>
+                            <form style="display:inline-block; margin-top: 5px;"
+                                  action='{{ path('kategorija_delete', {'id': kategorija.id}) }}' method="post">
+                                <input type="submit" class="btn btn-danger btn-xs" value="Обриши">
+                            </form>
 
 
-                    </td>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-
+        {% if admin %}
         <a class="btn btn-success" role="button" href="{{ path('kategorija_nova') }}">
             Додај нову категорију</a>
+        {% endif %}
 
     </div>
 {% endblock %}

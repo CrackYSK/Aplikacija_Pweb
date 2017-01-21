@@ -64,7 +64,6 @@ class RegistrujTimController extends BaseController
         $kategorija = $takmicenje->getKategorija();
         $prijava = new Prijava();
         $tim = new Tim();
-        $prijava->setTim($tim);
         if ($kategorija->getStudentska()) {
             for ($i = 0; $i < $kategorija->getBrojClanovaTima(); $i++) {
                 $ucesnik = new Student();
@@ -76,6 +75,7 @@ class RegistrujTimController extends BaseController
                 $tim->getUcesnik()->add($ucesnik);
             }
         }
+        $prijava->setTim($tim);
         $form = $this->createForm(PrijavaType::class, $prijava, array(
             'manager' => $this->getDoctrine()->getManager(),
             'broj_clanova' => $kategorija->getBrojClanovaTima(),
@@ -93,9 +93,13 @@ class RegistrujTimController extends BaseController
             foreach ($ucesnici as $ucesnik) {
                 $ucesnik->setTim($tim);
             }
+            if ($kategorija->getBrojClanovaTima() == 1) {
+                $ucesnik = $tim->getUcesnik()[0];
+
+                $tim->setNaziv($ucesnik->getIme().'_'.$ucesnik->getPrezime().rand(0, 100000));
+            }
             $this->persist($form->getData());
             return $this->redirectToRoute('homepage');
-            return $this->forward('AppBundle:Index:index', array('success' => true));
         } else {
             return $this->render('AppBundle:Registruj:registruj.html.twig', array(
                 'form' => $form->createView()

@@ -21,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * Class TakmicenjeController
  * @package AppBundle\Controller
- * @Route("/admin/dogadjaj/takmicenje")
+ * @Route("/admin/dogadjaj/takmicenje/detalji")
  */
 class TakmicenjeController extends BaseController
 {

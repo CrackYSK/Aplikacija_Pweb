@@ -19,7 +19,8 @@ class TimType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('naziv', TextType::class, array('label' => 'Назив'));
+        if ($options['broj_clanova'] > 1)
+            $builder->add('naziv', TextType::class, array('label' => 'Назив'));
         if ($options['broj_clanova'] > 0) {
             if ($options['studentska']) {
                 $builder->add('ucesnik', CollectionType::class, array(

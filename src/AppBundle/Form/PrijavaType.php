@@ -44,7 +44,7 @@ class PrijavaType extends AbstractType
         $builder->add('tim', TimType::class, array(
             'broj_clanova' => $options['broj_clanova'],
             'studentska' => $options['studentska'],
-            'label' => 'Тим:'
+            'label' => 'Пријава'
         ));
 
 //        $builder->add('captcha', CaptchaType::class, array(

@@ -20,12 +20,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * Class PregledPrijavaController
  * @package AppBundle\Controller
- * @Route("/admin/dogadjaj/takmicenje/{id}")
+ * @Route("/admin/dogadjaj/takmicenje/detalji/{id}")
  */
 class PregledPrijavaController extends BaseController
 {
     /**
-     * @Route("/", name="pregled_prijava")
+     * @Route("/prijave", name="pregled_prijava")
      */
     public function indexAction($id)
     {
@@ -52,13 +52,16 @@ class PregledPrijavaController extends BaseController
     }
 
     /**
-     * @Route("/{pid}", name="prijava_detaljno")
+     * @Route("/prijave/{pid}", name="prijava_detaljno")
      */
     public function showAction($id, $pid)
     {
+
         $takmicenje = $this->getRepository('AppBundle:Takmicenje')->find($id);
         $prijava = $this->getRepository('AppBundle:Prijava')->find($pid);
         $komentari = $this->getRepository('AppBundle:Komentar')->findByPrijava($prijava);
+        $za=0;
+        $protiv=0;
 
         $tim = $prijava->getTim();
         if ($takmicenje->getKategorija()->getStudentska()) {
@@ -84,6 +87,10 @@ class PregledPrijavaController extends BaseController
                 $postoji = true;
                 $komentar_id = $komentar->getId();
             }
+            if($komentar->getZa())
+                $za++;
+            else
+                $protiv++;
         }
 
         return $this->render('AppBundle:PregledPrijava:show.html.twig', array(
@@ -92,12 +99,14 @@ class PregledPrijavaController extends BaseController
             'komisija' => $komisija,
             'predsednik' => $predsednik,
             'postoji_komentar' => $postoji,
-            'komentar_id' => $komentar_id
+            'komentar_id' => $komentar_id,
+            'za' => $za,
+            'protiv' => $protiv
         ));
     }
 
     /**
-     * @Route("/{pid}/dodaj_komentar", name="komentar_new")
+     * @Route("/prijave/{pid}/dodaj_komentar", name="komentar_new")
      * @Method("GET")
      */
     public function newAction($id, $pid)
@@ -115,7 +124,7 @@ class PregledPrijavaController extends BaseController
     }
 
     /**
-     * @Route("/{pid}/dodaj_komentar", name="komentar_insert")
+     * @Route("/prijave/{pid}/dodaj_komentar", name="komentar_insert")
      * @Method("POST")
      */
     public function insertAction($id, $pid, Request $request)
@@ -161,7 +170,7 @@ class PregledPrijavaController extends BaseController
     }
 
     /**
-     * @Route("/{pid}/{kid}/promeni_komentar", name="komentar_update")
+     * @Route("/prijave/{pid}/{kid}/promeni_komentar", name="komentar_update")
      * @Method("POST")
      */
     public function updateAction($id, $pid, $kid, Request $request)
@@ -188,7 +197,7 @@ class PregledPrijavaController extends BaseController
     }
 
     /**
-     * @Route("/{pid}/{kid}/obrisi", name="komentar_delete")
+     * @Route("/prijave/{pid}/{kid}/obrisi", name="komentar_delete")
      * @Method("POST")
      */
     public function deleteAction($id, $pid, $kid, Request $request)
@@ -204,7 +213,7 @@ class PregledPrijavaController extends BaseController
     }
 
     /**
-     * @Route("/{pid}/odobri", name="odobri_prijavu")
+     * @Route("/prijave/{pid}/odobri", name="odobri_prijavu")
      * @Method("POST")
      */
     public function approveAction(Request $request)
@@ -213,13 +222,27 @@ class PregledPrijavaController extends BaseController
         $id = $request->request->get('id');
         $prijava = $this->getRepository('AppBundle:Prijava')->find($pid);
         $prijava->setStatus(!$prijava->getStatus());
-        $this->persist($prijava);
+        if ($prijava->getStatus()) {
+            $brMesta = $prijava->getTakmicenje()->getBrojSlobodnihMesta();
+            if ($brMesta > 0) {
+                $prijava->getTakmicenje()->setBrojSlobodnihMesta($brMesta-1);
+                $this->persist($prijava);
+            } else {
+                echo false;
+            }
 
-        return $this->forward('AppBundle:PregledPrijava:show', array(
+        } else {
+            $brMesta = $prijava->getTakmicenje()->getBrojSlobodnihMesta();
+            $prijava->getTakmicenje()->setBrojSlobodnihMesta($brMesta+1);
+            $this->persist($prijava);
+        }
+
+        return $this->redirectToRoute('prijava_detaljno', array(
             'success' => true,
             'id' => $id,
             'pid' => $pid
         ));
+
     }
 
 }

@@ -20,12 +20,15 @@
                     <td>{{ dogadjaj.ime }}</td>
                     <td>{{ dogadjaj.datum|date("d.m.Y")  }}</td>
                     <td>{{ dogadjaj.predsednik }}</td>
-                    <td>  <a class="btn btn-primary btn-xs" role="button" href="{{ path('dogadjaj_dohvati', {'id': dogadjaj.id}) }}">
+                    <td>
+                        {% if admin %}
+                        <a class="btn btn-primary btn-xs" role="button" href="{{ path('dogadjaj_dohvati', {'id': dogadjaj.id}) }}">
                             Измени</a>
                         <form style="display:inline-block; margin-top: 5px;"
                               action='{{ path('dogadjaj_obrisi', {'id': dogadjaj.id}) }}' method="post">
                             <input type="submit" class="btn btn-danger btn-xs" value="Обриши">
                         </form>
+                        {% endif %}
 
                         <a class="btn btn-info btn-xs" role="button"
                         href="{{ path('dogadjaj_detaljno', {'id': dogadjaj.id}) }}">
@@ -37,8 +40,10 @@
             {% endfor %}
             </tbody>
         </table>
+        {% if admin %}
         <a class="btn btn-success" role="button" href="{{ path('dogadjaj_novi') }}">
             Додај нови догађај</a>
+        {% endif %}
     </div>
 
 
