@@ -16,4 +16,13 @@ class IndexController extends BaseController
         // replace this example code with whatever you need
         return $this->render('AppBundle:Index:index.html.twig');
     }
+
+    /**
+     * @Route("/prijava", name="prijava")
+     */
+    public function loginAction(Request $request)
+    {
+
+        return $this->render('AppBundle:Prijava:prijava.html.twig');
+    }
 }
