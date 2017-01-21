@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ucesnik
@@ -50,9 +51,10 @@ class Ucesnik
     private $prethodnaIskustva;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="CV", type="string", length=100, nullable=true)
+     * @Assert\File(
+     *     mimeTypes={ "application/pdf", "application/x-pdf" },
+     *     mimeTypesMessage = "CV-образац мора бити у PDF формату")
      */
     private $cV;
 

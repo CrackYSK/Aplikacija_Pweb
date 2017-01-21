@@ -4,11 +4,12 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class UcesnikType extends AbstractType
 {
@@ -25,6 +26,17 @@ class UcesnikType extends AbstractType
             'label' => 'е-пошта'
         ))->add('prethodnaIskustva', TextareaType::class, array(
             'label' => 'Претходна искуства'
+        ))->add('cv', FileType::class, array(
+            'label' => 'Додајте CV:образац',
+            'constraints' => [
+                new File([
+                    'mimeTypes' => [
+                        'application/pdf',
+                        'application/x-pdf',
+                    ],
+                    'mimeTypesMessage' => 'Очекује се CV-образац у PDF формату!',
+                ])
+            ]
         ));
     }
     

@@ -15,6 +15,7 @@ use AppBundle\Form\PrijavaType;
 use AppBundle\Form\TimType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Controller\BaseController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Tim;
@@ -92,6 +93,12 @@ class RegistrujTimController extends BaseController
             $ucesnici = $tim->getUcesnik();
             foreach ($ucesnici as $ucesnik) {
                 $ucesnik->setTim($tim);
+                /** @var UploadedFile $cv */
+                $cv = $ucesnik->getCv();
+                $cvName = md5(uniqid()).'.'.$cv->guessExtension();
+
+                $cv->move($this->getParameter('cv_dir'), $cvName);
+                $ucesnik->setCv($cvName);
             }
             if ($kategorija->getBrojClanovaTima() == 1) {
                 $ucesnik = $tim->getUcesnik()[0];

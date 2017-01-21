@@ -3,8 +3,8 @@
 
 
 {% block body %}
-    <div class="container" style="width: 500px;">
-    {{ form_start(form) }}
+    <div class="container" id="forma" style="width: 500px;">
+    {{ form_start(form, {'multipart': true}) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
     </div>
@@ -29,6 +29,9 @@
                     success: function (html) {
                         $('#appbundle_prijava_tim').replaceWith(
                             $(html).find('#appbundle_prijava_tim')
+                        );
+                        $('.captcha_image').replaceWith(
+                            $(html).find('.captcha_image')
                         );
                     }
                 });

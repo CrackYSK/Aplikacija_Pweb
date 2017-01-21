@@ -47,9 +47,9 @@ class PrijavaType extends AbstractType
             'label' => 'Пријава'
         ));
 
-//        $builder->add('captcha', CaptchaType::class, array(
-//            'label' => 'Потврда'
-//        ));
+        $builder->add('captcha', CaptchaType::class, array(
+            'label' => 'Потврда'
+        ));
 
         $builder->add('save', SubmitType::class, array(
             'label' => 'Сачувај'));
