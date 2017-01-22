@@ -98,7 +98,6 @@ class PregledPrijavaController extends BaseController
                 $protiv++;
         }
 
-        $dir = $this->getParameter('cv_dir');
 
         return $this->render('AppBundle:PregledPrijava:show.html.twig', array(
             'prijava' => $prijava,
@@ -109,8 +108,7 @@ class PregledPrijavaController extends BaseController
             'komentar_id' => $komentar_id,
             'za' => $za,
             'protiv' => $protiv,
-            'takmicenje_id' => $id,
-            'dir' => $dir
+            'takmicenje_id' => $id
         ));
     }
 

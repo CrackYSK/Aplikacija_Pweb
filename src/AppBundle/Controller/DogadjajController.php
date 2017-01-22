@@ -165,7 +165,7 @@ class DogadjajController extends BaseController
 
         }
         return $this->render('AppBundle:Dogadjaj:show.html.twig',
-            array('dogadjaj' => $dogadjaj, 'takmicenja' => $takmicenja, 'smotra'=>$smotra, 'admin'=>$admin));
+            array('dogadjaj' => $dogadjaj, 'takmicenja' => $takmicenja, 'smotra'=>$smotra,'radovi'=>null, 'admin'=>$admin));
     }
 
 }

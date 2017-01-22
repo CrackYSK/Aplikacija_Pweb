@@ -60,7 +60,7 @@
                                href="{{ path('prijava_ucesnik_mejl_prikazi', {'id': takmicenje_id, 'uid': ucesnik.id}) }}">
                                 Пошаљи мејл</a>
                         </td>
-                        <td><a href="{{ dir }}/{{ ucesnik.cv }}" >PREVIEW</a></td>
+                        <td><a href="{{ asset('../cv') }}/{{ ucesnik.cv }}" ><span class="glyphicon glyphicon-file"></span></a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

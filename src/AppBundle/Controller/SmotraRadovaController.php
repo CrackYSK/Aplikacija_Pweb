@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\SmotraRadova;
+use AppBundle\Entity\Dogadjaj;
 use AppBundle\Form\SmotraRadovaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SmotraRadovaController extends BaseController
 {
     /**
-     * @Route("/{id}/new", name="smotra_insert")
+     * @Route("/{id}/new", name="smotra_dodaj")
      * @Method("POST")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -50,5 +51,26 @@ class SmotraRadovaController extends BaseController
         return $this->redirectToRoute('dogadjaj_detaljno', array('id' => $id));
 
     }
+
+    /**
+     * @Route("/{id}/delete", name="smotra_obrisi")
+     * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function deleteAction(Request $request, $id)
+    {
+
+        $smotra = $this->getRepository('AppBundle:SmotraRadova')->findOneBy(array('dogadjaj' =>$id));
+
+        $em = $this->get('doctrine')->getEntityManager();
+        $em->remove($smotra);
+        $em->flush();
+
+        return $this->redirectToRoute('dogadjaj_detaljno', array(
+            'id' => $id,
+        ));
+
+    }
+
 
 }
