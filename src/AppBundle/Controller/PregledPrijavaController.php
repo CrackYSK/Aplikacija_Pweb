@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class PregledPrijavaController
@@ -25,6 +26,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class PregledPrijavaController extends BaseController
 {
+    static $obavesteni=false;
     /**
      * @Route("/prijave", name="pregled_prijava")
      */
@@ -48,7 +50,8 @@ class PregledPrijavaController extends BaseController
 
         return $this->render('AppBundle:PregledPrijava:pregled.html.twig', array(
             'takmicenje' => $takmicenje,
-            'prijave' => $prijave
+            'prijave' => $prijave,
+            'obavesteni'=>self::$obavesteni
         ));
     }
 
@@ -245,5 +248,89 @@ class PregledPrijavaController extends BaseController
         ));
 
     }
+
+    /**
+     * @Route("prijava/obavestenje", name="prijava_obavesti")
+     */
+    public function notifyAction($id) {
+
+        $takmicenje = $this->getRepository('AppBundle:Takmicenje')->find($id);
+
+        $prijave = $this->getRepository('AppBundle:Prijava')->findByTakmicenje($takmicenje);
+        $ucesnici=null;
+        foreach ($prijave as $prijava) {
+            if ($takmicenje->getKategorija()->getStudentska()) {
+                $ucesnici = $this->getRepository('AppBundle:Student')->findByTim($prijava->getTim());
+            } else {
+                $ucesnici = $this->getRepository('AppBundle:Srednjoskolac')->findByTim($prijava->getTim());
+            }
+
+            if($ucesnici!=null) {
+
+                if($prijava->getStatus()==1) {
+                    foreach ($ucesnici as $ucesnik) {
+                        $message = \Swift_Message::newInstance()
+                            ->setSubject('Obavestenje')
+                            ->setFrom($this->container->getParameter('mailer_user'))
+                            ->setTo($ucesnik->getEmail())
+                            ->setBody(
+                                $this->renderView(
+                                // app/Resources/views/Emails/registration.html.twig
+                                    'Email/notifying.html.twig',
+                                    array('ime' => $ucesnik->getIme(),
+                                            'prezime'=>$ucesnik->getPrezime(),
+                                            'status'=>true,
+                                            'kategorija'=>$takmicenje->getKategorija()->getNaziv())
+                                ),
+                                'text/html'
+                            );
+
+                        $this->get('mailer')->send($message);
+                    }
+                }
+                else {
+                    foreach ($ucesnici as $ucesnik) {
+                        $message = \Swift_Message::newInstance()
+                            ->setSubject('Obavestenje')
+                            ->setFrom($this->container->getParameter('mailer_user'))
+                            ->setTo($ucesnik->getEmail())
+                            ->setBody(
+                                $this->renderView(
+                                // app/Resources/views/Emails/registration.html.twig
+                                    'Email/notifying.html.twig',
+                                    array('ime' => $ucesnik->getIme(),
+                                        'prezime'=>$ucesnik->getPrezime(),
+                                        'status'=>false,
+                                        'kategorija'=>$takmicenje->getKategorija()->getNaziv())
+                                ),
+                                'text/html'
+                            );
+                        $this->get('mailer')->send($message);
+                    }
+                }
+
+            }
+        }
+
+        self::$obavesteni=true;
+
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'Emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+
+
+        return $this->redirectToRoute('pregled_prijava', array(
+            'success' => true,
+            'id' => $id,
+        ));
+    }
+
 
 }

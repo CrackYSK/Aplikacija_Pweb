@@ -65,6 +65,8 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
+    encryption: ssl
+    port:      465
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
@@ -79,3 +81,5 @@ fos_user:
             type: AppBundle\Form\RegistrationType
 
 gregwar_captcha: ~
+
+

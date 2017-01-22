@@ -1,0 +1,14 @@
+<h3>Zdravo {{ ime }} {{ prezime }}</h3>
+
+{% if status == true %}
+    Ovim putem Vas obavestavamo da ste primljeni na takmicenje {{ kategorija }}.
+    Sva uputstva mozete procitati u prilozenom fajlu!
+    Srecno!
+{% else %}
+    Na zalost ovaj put niste primljeni na takmicenje {{ kategorija }}, vise srece drugi put!
+{# Makes an absolute URL to the /images/logo.png file #}
+
+{% endif %}
+
+<img src="{{ absolute_url(asset('bundles/img/matf.png'))  }}" class="img-responsive"
+     id="slikaMatf"/>

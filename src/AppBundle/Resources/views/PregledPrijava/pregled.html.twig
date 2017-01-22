@@ -51,5 +51,11 @@
             {% endfor %}
             </tbody>
         </table>
+
+        {% if takmicenje.brojSlobodnihMesta==0 and obavesteni==false%}
+             <a class="btn btn-info btn-xs" role="button"
+                href="{{ path('prijava_obavesti', {'id': takmicenje.id}) }}">
+                Обавести такмичаре </a>
+            {% endif %}
     </div>
 {% endblock %}
