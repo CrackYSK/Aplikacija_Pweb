@@ -35,15 +35,37 @@ class RegistrujTimController extends BaseController
      */
     public function newAction()
     {
-        $form = $this->createForm(PrijavaType::class, new Prijava(), array(
-            'action' => $this->generateUrl('registruj_insert'),
-            'manager' => $this->getDoctrine()->getManager()
-        ));
+        $em=$this->getRepository('AppBundle:Takmicenje');
 
-        return $this->render('AppBundle:Registruj:registruj.html.twig', array(
-                'form' => $form->createView()
-            )
-        );
+        $query = $em->createQueryBuilder('s')
+            ->select('d')
+            ->from('AppBundle:Dogadjaj', 'd')
+            ->where('d.datum > CURRENT_DATE()')
+            ->orderBy('DATE_DIFF(CURRENT_TIME(), d.datum)', 'ASC')
+            ->setMaxResults(1)
+
+            ->getQuery();
+        $dogadjaj=$query->getResult();
+        if($dogadjaj==null){
+            return $this->render('AppBundle:Registruj:registruj.html.twig', array(
+                    'form' => null,
+                    'nema' => true
+                )
+            );
+        }
+        else{
+            $form = $this->createForm(PrijavaType::class, new Prijava(), array(
+                'action' => $this->generateUrl('registruj_insert'),
+                'manager' => $this->getDoctrine()->getManager(),
+                'dogadjaj' => $dogadjaj
+            ));
+
+            return $this->render('AppBundle:Registruj:registruj.html.twig', array(
+                    'form' => $form->createView(),
+                    'nema' => false
+                )
+            );
+        }
     }
 
     /**
@@ -80,7 +102,8 @@ class RegistrujTimController extends BaseController
         $form = $this->createForm(PrijavaType::class, $prijava, array(
             'manager' => $this->getDoctrine()->getManager(),
             'broj_clanova' => $kategorija->getBrojClanovaTima(),
-            'studentska' => $kategorija->getStudentska()
+            'studentska' => $kategorija->getStudentska(),
+            'dogadjaj' => $takmicenje->getDogadjaj()
         ));
 
         $form->handleRequest($request);
@@ -109,7 +132,8 @@ class RegistrujTimController extends BaseController
             return $this->redirectToRoute('homepage');
         } else {
             return $this->render('AppBundle:Registruj:registruj.html.twig', array(
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'nema' => false
             ));
         }
 

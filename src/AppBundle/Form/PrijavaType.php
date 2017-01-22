@@ -23,17 +23,7 @@ class PrijavaType extends AbstractType
         $em=$options['manager']->getRepository('AppBundle:Takmicenje');
 
 
-
-        $query = $em->createQueryBuilder('s')
-            ->select('d.id')
-            ->from('AppBundle:Dogadjaj', 'd')
-            ->where('d.datum > CURRENT_DATE()')
-            ->orderBy('DATE_DIFF(CURRENT_TIME(), d.datum)', 'ASC')
-            ->setMaxResults(1)
-
-            ->getQuery();
-        $idDogadjaja=$query->getResult();
-        $takmicenja =$em->findByDogadjaj($idDogadjaja[0]['id']);
+        $takmicenja =$em->findByDogadjaj($options['dogadjaj']);
 
         $builder->add('takmicenje', EntityType::class, array(
             'class' => 'AppBundle:Takmicenje',
@@ -65,7 +55,8 @@ class PrijavaType extends AbstractType
             'data_class' => 'AppBundle\Entity\Prijava',
             'manager' => null,
             'broj_clanova' => 0,
-            'studentska' => 1
+            'studentska' => 1,
+            'dogadjaj' => null
         ));
     }
 

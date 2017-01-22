@@ -1,12 +1,18 @@
 {% extends 'base.html.twig' %}
-{% form_theme form 'theme/bootstrap_3_layout.html.twig' %}
+
 
 
 {% block body %}
+
     <div class="container" id="forma" style="width: 500px;">
-    {{ form_start(form, {'multipart': true}) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+        {% if nema %}
+            <h1>Тренутно не постоји такмичење за које можете да се пријавите.</h1>
+        {% else %}
+            {% form_theme form 'theme/bootstrap_3_layout.html.twig' %}
+            {{ form_start(form, {'multipart': true}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        {% endif %}
     </div>
 {% endblock %}
 
