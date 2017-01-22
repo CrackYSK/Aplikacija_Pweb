@@ -34,7 +34,7 @@ class DogadjajType extends AbstractType
                 'label' => 'Председник'
             ))
             ->add('save', SubmitType::class,array(
-                'attr' => array('class' => 'btn-success btn'),'label' => 'Сачувај'
+                'attr' => array('class' => 'btn-success btn-sm'),'label' => 'Сачувај'
             ));
         //,array('label' => 'Сачувај')
     }

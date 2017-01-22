@@ -49,10 +49,18 @@ class PregledPrijavaController extends BaseController
             $prijava->setTim($tim);
         }
 
+        $user = $this->getUser();
+
+        $predsednik = false;
+        if ($takmicenje->getDogadjaj()->getPredsednik() === $user) {
+            $predsednik = true;
+        }
+
         return $this->render('AppBundle:PregledPrijava:pregled.html.twig', array(
             'takmicenje' => $takmicenje,
             'prijave' => $prijave,
-            'obavesteni'=>self::$obavesteni
+            'obavesteni'=>self::$obavesteni,
+            'predsednik'=>$predsednik
         ));
     }
 

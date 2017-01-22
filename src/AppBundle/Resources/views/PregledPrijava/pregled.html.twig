@@ -52,11 +52,15 @@
             </tbody>
         </table>
 
-        {% if takmicenje.brojSlobodnihMesta==0 and obavesteni==false%}
+        {% if takmicenje.brojSlobodnihMesta==0 and obavesteni==false and predsednik %}
              <a class="btn btn-primary btn-sm" role="button" id="obavesti"
                 >
                 Обавести такмичаре </a>
         {% endif %}
+
+        <a class="btn btn-primary btn-sm" role="button"
+           href="{{ path('dogadjaj_detaljno', {'id': takmicenje.dogadjaj.id}) }}">
+            Врати се назад</a>
     </div>
 {% endblock %}
 
