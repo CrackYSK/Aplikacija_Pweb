@@ -40,7 +40,7 @@ class Autor
     /**
      * @var Student
      *
-     * @ORM\ManyToOne(targetEntity="Student", inversedBy="autor")
+     * @ORM\ManyToOne(targetEntity="Student", inversedBy="autor", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $student;
@@ -77,6 +77,38 @@ class Autor
     public function getRedosled()
     {
         return $this->redosled;
+    }
+
+    /**
+     * @return Student
+     */
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    /**
+     * @param Student $student
+     */
+    public function setStudent($student)
+    {
+        $this->student = $student;
+    }
+
+    /**
+     * @return Rad
+     */
+    public function getRad()
+    {
+        return $this->rad;
+    }
+
+    /**
+     * @param Rad $rad
+     */
+    public function setRad($rad)
+    {
+        $this->rad = $rad;
     }
 }
 

@@ -117,5 +117,21 @@ class Student extends Ucesnik
     {
         return $this->aktivan;
     }
+
+    /**
+     * @param Autor $autor
+     */
+    public function setAutor($autor)
+    {
+        $this->autor = $autor;
+    }
+
+    /**
+     * @return Autor
+     */
+    public function getAutor()
+    {
+        return $this->autor;
+    }
 }
 

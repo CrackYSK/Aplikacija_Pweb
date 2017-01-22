@@ -15,6 +15,7 @@
 /vendor/
 /web/bundles/
 /web/cv/
+/web/rad/
 /aplikacija_pweb-access.log
 /aplikacija_pweb-error.log
 /composer.json

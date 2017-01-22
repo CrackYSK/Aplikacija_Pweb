@@ -27,7 +27,7 @@ class UcesnikType extends AbstractType
         ))->add('prethodnaIskustva', TextareaType::class, array(
             'label' => 'Претходна искуства'
         ))->add('cv', FileType::class, array(
-            'label' => 'Додајте CV:образац',
+            'label' => 'Додајте CV-образац',
             'constraints' => [
                 new File([
                     'mimeTypes' => [

@@ -2,47 +2,53 @@
 
 {% block body %}
     <div class="container">
-        <div class="jumbotron text-centar">
-            <div class="col-sm-4">
-                <img src="{{ asset('bundles/img/logo.png') }}" class="img-responsive" id="slikaLogo"/>
-            </div>
-
-            <div class="col-sm-6">
-
-                <p style="color:#b30000;">Универзитет у Београду
-                </p>
-                <h3 style="color:#b30000; font-size:200%; font-weight:bold;">Математички факултет</h3>
-
-
-            </div>
+    <div class="jumbotron text-centar">
+        <div class="col-sm-4">
+            <img src="{{ asset('bundles/img/logo.png') }}" class="img-responsive" id="slikaLogo"/>
         </div>
 
-        <div class="row">
-            <div class="col-sm-4">
-                <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%;">>>
-                    <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="{{ path('registruj') }}"> Региструј
-                        се </a>
-                </h3>
-                <p>Попуни пријаву кликом на следеће дугме и региструј себе или свој тим
-                    за учешће на такмичењу.
-                </p>
-            </div>
-            <div class="col-sm-4">
-                <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%;">>>
-                    <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="{{ path('prijava') }}"> Пријави се </a>
-                </h3>
-                <p>Одсек за комисију
-                </p>
-            </div>
+        <div class="col-sm-6">
 
-            <div class="col-sm-4">
-                <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%; ">> О такмичењу</h3>
-                <p>Такмичење на Математичком факултету се одржава још од 2015 године и прате га вредне награде,
-                    јако квалитетне идеје младих људи и тимски дух.<br>
-                    Постани део тога!<br>
-                    Више информација о претходним такмичењима
-                    можеш сазнати кликом на матф++ и одабрати неко од претходних такмичења.
+            <p style="color:#b30000;">Универзитет у Београду
+            </p>
+            <h3 style="color:#b30000; font-size:200%; font-weight:bold;">Математички факултет</h3>
 
-                </p>
-            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+    <div class="col-sm-4">
+        <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%;">>>
+            <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="{{ path('registruj') }}"> Региструј
+                се </a>
+        </h3>
+        <p>Попуни пријаву кликом на следеће дугме и региструј себе или свој тим
+            за учешће на такмичењу.
+        </p>
+    </div>
+    <div class="col-sm-4">
+        <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%; ">><a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="{{ path('registruj_rad', {'broj_clanova': 0}) }}"> Региструј рад</a></h3>
+        <p>текст за рад
+
+        </p>
+    </div>
+    <div class="col-sm-4">
+        <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%;">>>
+            <a class="linkovi" style="color:#FFFFFF; text-decoration:none" href="{{ path('prijava') }}"> Пријави се </a>
+        </h3>
+        <p>Одсек за комисију
+        </p>
+    </div>
+
+    <div class="col-sm-4">
+        <h3 style="color:#FFFFFF; background-color: #b30000; font-size:130%; ">> О такмичењу</h3>
+        <p>Такмичење на Математичком факултету се одржава још од 2015 године и прате га вредне награде,
+            јако квалитетне идеје младих људи и тимски дух.<br>
+            Постани део тога!<br>
+            Више информација о претходним такмичењима
+            можеш сазнати кликом на матф++ и одабрати неко од претходних такмичења.
+
+        </p>
+    </div>
 {% endblock %}

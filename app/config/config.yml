@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     cv_dir: '%kernel.root_dir%/../web/cv'
+    rad_dir: '%kernel.root_dir%/../web/rad'
 
 framework:
     #esi:             ~
