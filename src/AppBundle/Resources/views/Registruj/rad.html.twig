@@ -3,7 +3,7 @@
 {% block title %}Регистрација рада{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" style="width: 500px;">
         {% if nema %}
             <h1>Тренутно не постоји смотра за коју можете да се пријавите.</h1>
         {% else %}
@@ -11,7 +11,6 @@
             {{ form_start(form, {'multipart': true}) }}
             {{ form_widget(form) }}
             {{ form_end(form) }}
-            <input type="button" value="Додај аутора" id="dodaj" />
         {% endif %}
     </div>
 {% endblock %}
@@ -21,13 +20,39 @@
 
     <script>
         $(document).ready(function() {
-            var $dodaj = $('#dodaj');
+            var $dodaj = $('#appbundle_rad_dodaj');
+            var $ukloni = $('#appbundle_rad_ukloni');
 
             $dodaj.click(function () {
-                var $form = $('form');
+                var $form = $(this).closest('form');
                 var data = {};
                 var $broj = parseInt($('#appbundle_rad_broj').val());
                 $broj = $broj + 1;
+                $('#appbundle_rad_broj').val($broj);
+                data['broj_clanova'] = $broj;
+                $.ajax({
+                    url:"{{ path('rad_insert') }}",
+                    type: $form.attr('method'),
+                    data: data,
+                    success: function (html) {
+                        console.log(html);
+                        $('#appbundle_rad_autor').replaceWith(
+                            $(html).find('#appbundle_rad_autor')
+                        );
+//                        $('.captcha_image').replaceWith(
+//                            $(html).find('.captcha_image')
+//                        );
+                    }
+                });
+            });
+
+            $ukloni.click(function () {
+                var $form = $(this).closest('form');
+                var data = {};
+                var $broj = parseInt($('#appbundle_rad_broj').val());
+                if ($broj > 0)
+                    $broj = $broj - 1;
+
                 $('#appbundle_rad_broj').val($broj);
                 data['broj_clanova'] = $broj;
                 $.ajax({

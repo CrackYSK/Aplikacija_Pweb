@@ -41,13 +41,31 @@ class RadType extends AbstractType
                     'label' => ' '
                 ),
                 'label' => 'Аутори'
-            ))->add('broj', HiddenType::class, array(
+            ))->add('dodaj', ButtonType::class, array(
+                'label' => 'Додај аутора',
+                'attr' => array(
+                    'class' => 'btn btn-primary btn-xs'
+                )
+            ));
+
+            $builder->add('ukloni', ButtonType::class, array(
+                'label' => 'Уклони аутора',
+                'attr' => array(
+                    'class' => 'btn btn-danger btn-xs'
+                )
+            ));
+            $builder->add('broj', HiddenType::class, array(
                 'mapped' => false,
                 'attr' => array(
-                    'value' => 0
+                    'value' => 0,
                 )
             ))
-            ->add('save', SubmitType::class);
+            ->add('save', SubmitType::class, array(
+                'label' => 'Пријави рад',
+                'attr' => array(
+                    'class' => 'btn btn-success btn-lg'
+                )
+            ));
     }
 
     /**

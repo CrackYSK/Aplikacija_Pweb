@@ -45,28 +45,44 @@ class RegistrujRadController extends BaseController
 
             ->getQuery();
         $dogadjaj=$query->getResult();
-        if($dogadjaj==null){
+        if ($dogadjaj !==null) {
+            $query = $em->createQueryBuilder('s')
+                ->select('sr')
+                ->from('AppBundle:SmotraRadova', 'sr')
+                ->where('sr.dogadjaj = :dogadjaj')
+                ->setParameter('dogadjaj', $dogadjaj[0])
+                ->setMaxResults(1)
+                ->getQuery();
+            $smotra = $query->getResult();
+
+            if (empty($smotra)) {
+                return $this->render('AppBundle:Registruj:rad.html.twig', array(
+                        'form' => null,
+                        'nema' => true,
+                    )
+                );
+            } else {
+                $rad = new Rad();
+                for ($i = 0; $i < $broj_clanova; $i++) {
+                    $autor = new Autor();
+                    $rad->getAutor()->add($autor);
+                }
+                $form = $this->createForm(RadType::class, $rad, array(
+                    'action' => $this->generateUrl('rad_insert'),
+                    'manager' => $this->getDoctrine()->getManager(),
+                ));
+
+                return $this->render('AppBundle:Registruj:rad.html.twig', array(
+                        'form' => $form->createView(),
+                        'nema' => false,
+                    )
+                );
+            }
+        }
+        else{
             return $this->render('AppBundle:Registruj:rad.html.twig', array(
                     'form' => null,
                     'nema' => true,
-                )
-            );
-        }
-        else{
-            $rad = new Rad();
-            for ($i = 0; $i < $broj_clanova; $i++) {
-                $autor = new Autor();
-                $rad->getAutor()->add($autor);
-            }
-            $form = $this->createForm(RadType::class, $rad, array(
-                'action' => $this->generateUrl('rad_insert'),
-                'manager' => $this->getDoctrine()->getManager()
-            ));
-
-            return $this->render('AppBundle:Registruj:rad.html.twig', array(
-                    'form' => $form->createView(),
-                    'nema' => false,
-                    'broj_clanova' => $broj_clanova
                 )
             );
         }
@@ -91,7 +107,7 @@ class RegistrujRadController extends BaseController
             $rad->getAutor()->add($autor);
         }
         $form = $this->createForm(RadType::class, $rad, array(
-            'manager' => $this->getDoctrine()->getManager()
+            'manager' => $this->getDoctrine()->getManager(),
         ))->add('save', SubmitType::class);
 
         $form->handleRequest($request);
@@ -108,7 +124,15 @@ class RegistrujRadController extends BaseController
 
                 ->getQuery();
             $dogadjaj=$query->getResult();
-            $smotra = $this->getRepository('AppBundle:SmotraRadova')->findByDogadjaj($dogadjaj[0]);
+
+            $query = $em->createQueryBuilder('s')
+                ->select('sr')
+                ->from('AppBundle:SmotraRadova', 'sr')
+                ->where('sr.dogadjaj = :dogadjaj')
+                ->setParameter('dogadjaj', $dogadjaj[0])
+                ->setMaxResults(1)
+                ->getQuery();
+            $smotra = $query->getResult();
 
 
             $rad->setSmotraRadova($smotra[0]);
@@ -138,7 +162,6 @@ class RegistrujRadController extends BaseController
         } else {
             return $this->render('AppBundle:Registruj:rad.html.twig', array(
                 'form' => $form->createView(),
-                'broj_clanova' => $broj_clanova,
                 'nema' => false
             ));
         }

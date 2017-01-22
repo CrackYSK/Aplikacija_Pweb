@@ -13,7 +13,10 @@ class AutorType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('student', StudentType::class);
+        $builder->add('student', StudentType::class, array(
+            'label' => ' '
+        ));
+
     }
     
     /**
