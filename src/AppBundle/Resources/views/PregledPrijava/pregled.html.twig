@@ -52,10 +52,32 @@
             </tbody>
         </table>
 
-        {% if takmicenje.brojSlobodnihMesta==0 and obavesteni==false%}
-             <a class="btn btn-info btn-xs" role="button"
-                href="{{ path('prijava_obavesti', {'id': takmicenje.id}) }}">
+        {% if takmicenje.brojSlobodnihMesta==0 or obavesteni==false%}
+             <a class="btn btn-primary btn-sm" role="button" id="obavesti"
+                >
                 Обавести такмичаре </a>
-            {% endif %}
+        {% endif %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#obavesti').click(function () {
+                var data = {};
+                data['id'] = {{ takmicenje.id }};
+                $.ajax({
+                    url: "{{ path('prijava_obavesti', {'id': takmicenje.id}) }}",
+                    type: 'GET',
+                    data: data,
+                    success: function (data) {
+
+                        window.alert(data);
+
+                    }
+                });
+            });
+        })
+    </script>
 {% endblock %}

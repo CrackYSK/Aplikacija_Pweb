@@ -1,0 +1,62 @@
+{% extends 'AppBundle:Admin:admin_base.html.twig' %}
+
+
+{% block title %}Слање мејла{% endblock %}
+
+{% block body %}
+
+    <h2  style="text-align:center" >Слање мејла {{ ucesnik.ime }} {{ ucesnik.prezime }} </h2>
+    <br>
+    <br>
+    <div class="container" style="width:600px; ">
+
+
+
+        {#<form action='{{ path('prijava_ucesnik_mejl_posalji',{'id': takmicenje.id,'uid':ucesnik.id} ) }}'  method="post">#}
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Унесите наслов мејла</label>
+                    <input type="text" class="form-control" id="mail_header" name="mail_header" required>
+
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Унесите садржај мејла</label>
+                <textarea class="form-control" rows="5" id="mail_content" name="mail_content" required></textarea>
+            </div>
+
+
+
+            {#<button type="submit" class="btn btn-primary">Пошаљи</button>#}
+        {#</form>#}
+        <a class="btn btn-primary btn-sm" role="button" id="posalji">Пошаљи</a>
+        <br>
+        <br>
+        <a class="btn btn-primary btn-sm" role="button"
+           href="{{ path('pregled_prijava', {'id': takmicenje.id}) }}">
+            Vrati se na pregled prijava</a>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#posalji').click(function () {
+                var data = {};
+                data['mail_header']=$('#mail_header').val();
+                data['mail_content']=$('#mail_content').val();
+                $.ajax({
+                    url: "{{ path('prijava_ucesnik_mejl_posalji', {'id': takmicenje.id, 'uid': ucesnik.id}) }}",
+                    type: 'POST',
+                    data: data,
+                    success: function (data) {
+
+                       window.alert(data);
+
+                    }
+                });
+            });
+        })
+    </script>
+{% endblock %}

@@ -12,6 +12,7 @@ use AppBundle\Entity\Komentar;
 use AppBundle\Form\KomentarType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Takmicenje;
+use AppBundle\Entity\Ucesnik;
 use AppBundle\Entity\Tim;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
@@ -105,7 +106,8 @@ class PregledPrijavaController extends BaseController
             'postoji_komentar' => $postoji,
             'komentar_id' => $komentar_id,
             'za' => $za,
-            'protiv' => $protiv
+            'protiv' => $protiv,
+            'takmicenje_id' => $id
         ));
     }
 
@@ -251,6 +253,7 @@ class PregledPrijavaController extends BaseController
 
     /**
      * @Route("prijava/obavestenje", name="prijava_obavesti")
+     * @Method("GET")
      */
     public function notifyAction($id) {
 
@@ -326,11 +329,66 @@ class PregledPrijavaController extends BaseController
             */
 
 
-        return $this->redirectToRoute('pregled_prijava', array(
-            'success' => true,
-            'id' => $id,
-        ));
+        $response = new Response("Мејлови су успешно послати");
+        $response->headers->set('Content-Type', 'text/plain');
+
+        return $response;
     }
 
 
+    /**
+     * @Route("prijava/{uid}/pojedinacno", name="prijava_ucesnik_mejl_prikazi")
+     */
+    public function notifyUserAction($id,$uid) {
+
+        $takmicenje = $this->getRepository('AppBundle:Takmicenje')->find($id);
+
+        $ucesnik=null;
+        if ($takmicenje->getKategorija()->getStudentska()) {
+            $ucesnik = $this->getRepository('AppBundle:Student')->find($uid);
+        } else {
+            $ucesnik = $this->getRepository('AppBundle:Srednjoskolac')->find($uid);
+        }
+
+
+        return $this->render('AppBundle:PregledPrijava:slanje_pojedinacnog_mejla.html.twig', array(
+            'takmicenje' => $takmicenje,
+            'ucesnik' => $ucesnik,
+        ));
+
+    }
+
+    /**
+     * @Route("prijava/{uid}/pojedinacno_obavestenje", name="prijava_ucesnik_mejl_posalji")
+     * @Method("POST")
+     */
+
+    public function sendMailUserAction($id, $uid, Request $request) {
+
+        $takmicenje = $this->getRepository('AppBundle:Takmicenje')->find($id);
+
+        $ucesnik=null;
+        $prijave = $this->getRepository('AppBundle:Prijava')->findByTakmicenje($takmicenje);
+        if ($takmicenje->getKategorija()->getStudentska()) {
+            $ucesnik = $this->getRepository('AppBundle:Student')->find($uid);
+        } else {
+            $ucesnik = $this->getRepository('AppBundle:Srednjoskolac')->find($uid);
+        }
+
+        $naslov=$request->request->get('mail_header');
+        $sadrzaj=$request->request->get('mail_content');
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($naslov)
+            ->setFrom($this->container->getParameter('mailer_user'))
+            ->setTo($ucesnik->getEmail())
+            ->setBody($sadrzaj,'text/plain');
+        $this->get('mailer')->send($message);
+
+
+        $response = new Response("Мејл је успешно послат");
+        $response->headers->set('Content-Type', 'text/plain');
+
+        return $response;
+    }
 }
