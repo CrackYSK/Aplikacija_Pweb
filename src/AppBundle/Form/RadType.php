@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class RadType extends AbstractType
 {
@@ -48,17 +50,20 @@ class RadType extends AbstractType
                 )
             ));
 
-            $builder->add('ukloni', ButtonType::class, array(
-                'label' => 'Уклони аутора',
-                'attr' => array(
-                    'class' => 'btn btn-danger btn-xs'
-                )
-            ));
-            $builder->add('broj', HiddenType::class, array(
-                'mapped' => false,
-                'attr' => array(
-                    'value' => 0,
-                )
+        $builder->add('ukloni', ButtonType::class, array(
+            'label' => 'Уклони аутора',
+            'attr' => array(
+                'class' => 'btn btn-danger btn-xs'
+            )
+        ));
+        $builder->add('broj', HiddenType::class, array(
+            'mapped' => false,
+            'attr' => array(
+                'value' => 0,
+            )
+        ))
+            ->add('captcha', CaptchaType::class, array(
+                'label' => 'Потврда'
             ))
             ->add('save', SubmitType::class, array(
                 'label' => 'Пријави рад',
